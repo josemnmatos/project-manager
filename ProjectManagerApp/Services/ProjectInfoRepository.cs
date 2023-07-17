@@ -40,7 +40,8 @@ namespace ProjectManagerApp.Services
             _context.Projects.Remove(project);        
         }
 
-
+        //Task methods implementation
+        //_____________________________________________________________________
 
         public async Task<IEnumerable<Entities.Task>> GetTasksForProjectAsync(int projectId)
         {
@@ -54,7 +55,23 @@ namespace ProjectManagerApp.Services
                 .FirstOrDefaultAsync();
         }
 
+        public async Task AddTaskAsync(int projectId, Entities.Task task)
+        {
+            var project = await GetProjectAsync(projectId);
+            if(project != null) 
+            {
+                project.Tasks.Add(task);
+            }
 
+        }
+
+        public void DeleteTask(Entities.Task task)
+        {
+            _context.Tasks .Remove(task);
+        }
+
+        //Other methods implementation
+        //_____________________________________________________________________
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync() >= 0);

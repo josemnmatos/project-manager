@@ -33,7 +33,7 @@ namespace ProjectManagerApp.Controllers
             return Ok(_mapper.Map<IEnumerable<TaskDto>>(taskEntities));
         }
 
-        [HttpGet("{taskid}")]
+        [HttpGet("{taskid}", Name ="GetTask")]
         public async Task<ActionResult<IEnumerable<Entities.Task>>> GetTask(int projectId, int taskId)
         {
             if (!await _projectInfoRepository.ProjectExistsAsync(projectId))
@@ -51,6 +51,60 @@ namespace ProjectManagerApp.Controllers
             return Ok(_mapper.Map<TaskDto>(taskEntity));
         }
 
+
+        [HttpPost]
+        public async Task<ActionResult<TaskDto>> CreateTask(
+            int projectId,
+            [FromBody] TaskForCreationDto task)
+        {
+            if (!await _projectInfoRepository.ProjectExistsAsync(projectId))
+            {
+                return NotFound();
+            }
+
+            var newTask = _mapper.Map<Entities.Task>(task);
+
+            await _projectInfoRepository.AddTaskAsync(projectId, newTask);
+
+            await _projectInfoRepository.SaveChangesAsync();
+            
+            var createdTask = _mapper.Map<Models.TaskDto>(newTask);
+
+            return CreatedAtRoute(
+                "GetTask",
+                new
+                {
+                    projectId = projectId,
+                    taskId = createdTask.Id
+                },
+                createdTask
+                );
+        }
+
+
+
+        [HttpDelete("{taskid}")]
+        public async Task<ActionResult> DeleteTask(int projectId, int taskId)
+        {
+            if (!await _projectInfoRepository.ProjectExistsAsync(projectId))
+            {
+                return NotFound();
+            }
+
+            var taskToDelete = await _projectInfoRepository.GetTaskForProjectAsync(projectId, taskId);
+
+            if (taskToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _projectInfoRepository.DeleteTask(taskToDelete);
+
+            await _projectInfoRepository.SaveChangesAsync();
+
+            return NoContent();
+
+        }
 
 
 

@@ -7,6 +7,7 @@ namespace ProjectManagerApp.Profiles
         public TaskProfile() 
         {
             CreateMap<Entities.Task, Models.TaskDto>();
+            CreateMap<Models.TaskForCreationDto, Entities.Task>();
         }
 
 

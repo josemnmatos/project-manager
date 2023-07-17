@@ -6,7 +6,7 @@ using ProjectManagerApp.Services;
 
 namespace ProjectManagerApp.Controllers
 {
-    [Route("api/{projectid}/tasks")]
+    [Route("api/projects/{projectid}/tasks")]
     [ApiController]
     public class TasksController : ControllerBase
     {

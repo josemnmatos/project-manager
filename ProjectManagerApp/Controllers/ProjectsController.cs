@@ -24,11 +24,22 @@ namespace ProjectManagerApp.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Entities.Project>>> GetProjects()
-        {
-            var projectEntities = await _projectInfoRepository.GetProjectsAsync();
+        public async Task<ActionResult<IEnumerable<Entities.Project>>> GetProjects(
+            [FromQuery] int? managerId)
+        {   
+            if(managerId != null) 
+            {
+                if (!await _projectInfoRepository.ManagerExistsAsync((int)managerId))
+                {
+                    return NotFound();
+                }
+            }
+
+            var projectEntities = await _projectInfoRepository.GetProjectsAsync(managerId);
             return Ok(_mapper.Map<IEnumerable<ProjectWithoutTasksDto>>(projectEntities));
         }
+
+
 
         [HttpGet("{projectid}", Name ="GetProject")]
         public async Task<ActionResult<IEnumerable<Entities.Project>>> GetProject(int projectId)

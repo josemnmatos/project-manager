@@ -8,6 +8,8 @@ namespace ProjectManagerApp.Services
         //_______________________________________________________________
         Task<IEnumerable<Entities.Project>> GetProjectsAsync();
 
+        Task<IEnumerable<Entities.Project>> GetProjectsAsync(int? managerId);
+
         Task<Entities.Project?> GetProjectAsync(int projectId);
 
         Task<bool> ProjectExistsAsync(int projectId);
@@ -16,9 +18,12 @@ namespace ProjectManagerApp.Services
 
         void DeleteProject(Entities.Project project);
 
+
         //Task repository methods 
         //_______________________________________________________________
         Task<IEnumerable<Entities.Task>> GetTasksForProjectAsync(int projectId);
+
+        Task<IEnumerable<Entities.Task>> GetTasksForProjectAsync(int projectId, int? developerId);
 
         Task<Entities.Task?> GetTaskForProjectAsync(int projectId, int taskId);
 
@@ -26,12 +31,17 @@ namespace ProjectManagerApp.Services
 
         void DeleteTask(Entities.Task task);
 
-        //Developer repository methods 
-        //_______________________________________________________________
+        Task<IEnumerable<Entities.Task>> GetTasksByDeveloperAsync(int developerId);
+
+        //Manager methods implementation
+        //_____________________________________________________________________
+        Task<bool> ManagerExistsAsync(int managerId);
 
 
-        //Manager repository methods 
-        //_______________________________________________________________
+        //Developer methods implementation
+        //_____________________________________________________________________
+        Task<bool> DeveloperExistsAsync(int developerId);
+
 
         //Other repository methods 
         //_______________________________________________________________

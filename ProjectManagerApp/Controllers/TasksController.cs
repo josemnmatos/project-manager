@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagerApp.Entities;
 using ProjectManagerApp.Models;
 using ProjectManagerApp.Services;
 
@@ -22,14 +23,23 @@ namespace ProjectManagerApp.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Entities.Task>>> GetTasks(int projectId)
+        public async Task<ActionResult<IEnumerable<Entities.Task>>> GetTasks(int projectId,
+            [FromQuery] int? developerId)
         {
             if (!await _projectInfoRepository.ProjectExistsAsync(projectId))
             {
                 return NotFound();
             }
 
-            var taskEntities = await _projectInfoRepository.GetTasksForProjectAsync(projectId);
+            if (developerId != null)
+            {
+                if (!await _projectInfoRepository.DeveloperExistsAsync((int)developerId))
+                {
+                    return NotFound();
+                }
+            }
+
+            var taskEntities = await _projectInfoRepository.GetTasksForProjectAsync(projectId, developerId);
             return Ok(_mapper.Map<IEnumerable<TaskDto>>(taskEntities));
         }
 
@@ -99,6 +109,31 @@ namespace ProjectManagerApp.Controllers
             }
 
             _projectInfoRepository.DeleteTask(taskToDelete);
+
+            await _projectInfoRepository.SaveChangesAsync();
+
+            return NoContent();
+
+        }
+
+
+        [HttpPut("{taskid}")]
+        public async Task<ActionResult> UpdateTask(int projectId, int taskId,
+            [FromBody] TaskForUpdateDto task)
+        {
+            if (!await _projectInfoRepository.ProjectExistsAsync(projectId))
+            {
+                return NotFound();
+            }
+
+            var taskToUpdate = await _projectInfoRepository.GetTaskForProjectAsync(projectId, taskId);
+
+            if (taskToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(task, taskToUpdate);
 
             await _projectInfoRepository.SaveChangesAsync();
 

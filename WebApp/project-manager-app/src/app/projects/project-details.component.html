@@ -1,0 +1,79 @@
+<span *ngIf="project">
+   <div class="container p-3 border-light">
+      <div class="row">
+         <div class="col-md-6">
+            <h2>{{project.name}}</h2>
+         </div>
+         <div class="col-md-6 text-center pe-2 fw-bold pt-2">
+            <p>Project ID : {{project.id}}</p>
+         </div>
+         <div class="row border-bottom p-2">
+            <h5>Budget : {{project.budget | currency:'EUR' }}</h5>
+         </div>
+
+
+         <div class="row border-bottom p-2 mt-2 ">
+            <div class="col-md-6">
+               <h2>
+                  <p>Task overview</p>
+               </h2>
+            </div>
+            <div class="col-md-6 text-end">
+               <a href="/projects/{{project.id}}/tasks">
+                  <button class="btn btn-primary align-content-end">Manage</button>
+               </a>
+            </div>
+         </div>
+         <div class="row">
+            <div class="container">
+               <div *ngIf="taskNumber==0"
+                  class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+                  <h3>No tasks yet</h3>
+                  <button class="btn btn-primary">Add task</button>
+               </div>
+
+               <table *ngIf="taskNumber>0" class="table text-start p-2 bg-light">
+                  <thead>
+                     <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Developer</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let task of tasks">
+                        <th scope="row">{{task.id}}</th>
+                        <td>{{task.name}}</td>
+                        <td>{{task.description}}</td>
+                        <td class="fw-bolder" [ngClass]="task.state==3 ? 'text-success' : 'text-danger'">{{task.state}}
+                        </td>
+                        <td>{{task.deadline | date}}</td>
+                        <td>{{task.developerId}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+
+         </div>
+
+
+
+
+      </div>
+   </div>
+
+
+
+</span>
+
+
+<span *ngIf="!project">
+   <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+      <h3>Select a project</h3>
+      <p>Or create a new one</p>
+      <button class="btn btn-primary">Create project</button>
+   </div>
+</span>

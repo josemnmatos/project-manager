@@ -1,0 +1,32 @@
+
+<div class="app_page1">
+   <div class="row">
+       <div class="col-sm-4" id="left">
+         <div class="row bg-light border-bottom">
+
+            <h4>Tasks</h4>
+         </div>
+
+
+         <div class="list-group list-group-flush">
+            <a *ngFor="let task of tasks"
+            [ngClass]="(activeTask?.id === task.id) ? 'active' : task.state==3 ? 'list-group-item-success' : task.state==2 ? 'list-group-item-warning' : 'list-group-item-danger'"
+            
+            class="list-group-item list-group-item-action py-3 lh-sm rounded-4 mt-3 shadow p-3 mb-2"
+            
+            href="#" onclick="return false;"
+            (click) = 'setActiveTask(task.id)'>
+              <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1">{{task.name}}</strong>
+                <small>{{task.id}}</small>
+              </div>
+              <div class="col-10 mb-1 small">{{task.description}}</div>
+            </a>
+          </div>
+       </div>
+       <div class="col-sm-4" id="right">
+         
+           <app-task-details [task]="activeTask"></app-task-details>
+       </div>
+   </div>
+ </div>

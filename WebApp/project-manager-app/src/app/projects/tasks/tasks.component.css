@@ -1,0 +1,45 @@
+.app_page1 {
+   margin: 0;
+   overflow: hidden;
+   height:100%;
+ }
+ 
+ @media (min-width: 768px){
+   #left {
+     position: absolute;
+     top: 0px;
+     bottom: 0;
+     left: 0;
+     width: 30%;
+     overflow-y: scroll; 
+   }
+
+   #right {
+     position: absolute;
+     top: 0;
+     bottom: 0;
+     right: 0;
+     overflow-y: scroll;
+     width: 70%;
+   }
+ }
+ 
+ #left {
+   text-align: center;
+   height:100%;
+ }
+
+ 
+ #right {
+   height:100%;
+ }
+ 
+ h4{
+   padding: 10px 0; 
+ }
+ 
+ .tool-card{
+   border: 2px solid black;
+   padding: 10px 10px;
+   margin: 10px 0;
+ }

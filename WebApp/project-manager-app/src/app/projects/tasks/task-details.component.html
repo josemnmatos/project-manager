@@ -7,14 +7,31 @@
          <div class="col-md-6 text-center pe-2 fw-bold pt-2">
             <p>Task ID : {{task.id}}</p>
          </div>
-         <div class="row border-bottom pt-1">
+         <div class="row">
+            <h5>Due by {{task.deadline | date}}</h5>
+         </div>
+
+
+
+
+         <div class="row border-bottom pt-1 pb-2">
             <div class="col-md-3 rounded-2 text-white text-center ">
                <h5 class="text-white rounded-2 p-2"
                   [ngClass]="task.state==3 ? 'bg-success' : task.state==2 ? 'bg-warning' : 'bg-danger'"
                   style="white-space: nowrap;">{{getTaskStateString(task.state)}}</h5>
             </div>
-            <h5>{{task.description}}</h5>
+            <div class="col-md-9 text-end">
+               <h5 *ngIf="task.state!=1">Assigned to {{task.developerId}}</h5>
+               <div *ngIf="task.state==1">
+                  <button class="btn fw-bold btn-light">Assign</button>
 
+               </div>
+            </div>
+
+
+         </div>
+         <div class="row pt-3">
+            <h5>{{task.description}}</h5>
          </div>
 
 

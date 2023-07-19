@@ -8,30 +8,24 @@ import { ProjectService } from '../project.service';
 @Component({
   selector: 'app-task-details',
   templateUrl: './task-details.component.html',
-  styleUrls: ['./task-details.component.css']
+  styleUrls: ['./task-details.component.css'],
 })
 export class TaskDetailsComponent {
   @Input() task: Task | undefined;
   sub!: Subscription;
 
-  constructor(
-    private projectService: ProjectService
-  ) {}
+  constructor(private projectService: ProjectService) {}
 
-  getTaskStateString(state: number){
-    switch(state){
+  getTaskStateString(state: number) {
+    switch (state) {
       case 1:
-        return "Not Assigned";
+        return 'Not Assigned';
       case 2:
-        return "In Progress";
+        return 'In Progress';
       case 3:
-        return "Done";
+        return 'Done';
     }
 
-    return "Not Assigned";
-
+    return 'Not Assigned';
   }
-
-
-
 }

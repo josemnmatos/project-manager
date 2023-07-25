@@ -3,16 +3,15 @@ import { Project, NewProject } from './project';
 import { Task } from './task';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
+import { GlobalConstants } from '../shared/global-constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  private projectsUrl = 'https://localhost:7136/api/projects';
+  private projectsUrl = GlobalConstants.apiURL + 'projects';
 
-  private individualProjectUrl = 'https://localhost:7136/api/projects/';
-
-  private tasksForProjectUrl = 'https://localhost:7136/api/projects/';
+  private individualProjectUrl = GlobalConstants.apiURL + 'projects/';
 
   constructor(private http: HttpClient) {}
 

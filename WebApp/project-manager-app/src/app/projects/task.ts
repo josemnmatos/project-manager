@@ -5,4 +5,5 @@ export interface Task {
   state: number;
   deadline: Date;
   developerId: number;
+  developer: string;
 }

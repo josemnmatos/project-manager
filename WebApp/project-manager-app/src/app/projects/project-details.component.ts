@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from './project';
-import { Task } from './task';
 import { Subscription } from 'rxjs';
 import { ProjectService } from './project.service';
 
@@ -11,42 +10,31 @@ import { ProjectService } from './project.service';
   styleUrls: ['./project-details.component.css'],
 })
 export class ProjectDetailsComponent {
-  @Input() project: Project | undefined;
-  tasks: Task[] = [];
-  taskNumber: number = 0;
   sub!: Subscription;
+  project?: Project;
 
   constructor(
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    if (this.project) {
-      this.sub = this.projectService
-        .getTasksForProject(this.project.id)
-        .subscribe({
-          next: (tasks) => {
-            this.tasks = tasks;
-          },
-        });
+    // get the id from the url
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!id) {
+      this.router.navigate(['/projects']);
     }
 
-    this.taskNumber = this.tasks.length;
-  }
+    // load the project
+    this.sub = this.projectService.getProjectById(id).subscribe((project) => {
+      this.project = project;
+    });
 
-  ngOnChanges(): void {
-    //update tasks when project changes
-      if (this.project) {
-        this.sub = this.projectService
-          .getTasksForProject(this.project.id)
-          .subscribe({
-            next: (tasks) => {
-              this.tasks = tasks;
-            },
-          });
-      }
-
-    this.taskNumber = this.tasks.length;
+    // load the tasks
+    this.sub = this.projectService.getTasksForProject(id).subscribe((tasks) => {
+      this.project!.tasks = tasks;
+    });
   }
 
   ngOnDestroy(): void {

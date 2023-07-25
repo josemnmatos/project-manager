@@ -5,4 +5,11 @@ export interface Project {
   name: string;
   budget: number;
   managerId: number;
+  tasks: Task[];
+}
+
+export interface NewProject {
+  name: string;
+  budget: number;
+  managerId: number;
 }

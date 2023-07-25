@@ -1,0 +1,22 @@
+<div class=" p-5 mt-5 ">
+   <h1 class="">New Project</h1>
+
+   <form #registerForm="ngForm" action="" class=" form" (ngSubmit)="onClickSubmit(registerForm.value)">
+      <div class="row p-3">
+         <label for="">Name</label>
+         <input type="text" class=" rounded-2 form-text" name="name" ngModel>
+      </div>
+      <div class="row p-3">
+         <label for="">Budget</label>
+         <input type="number" class="rounded-2 form-text" name="budget" ngModel>
+      </div>
+
+      <div class="row p-3 text-center  ">
+         <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+   </form>
+
+
+
+
+</div>

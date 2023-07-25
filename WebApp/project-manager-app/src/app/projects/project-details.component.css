@@ -1,0 +1,6 @@
+
+
+.animate :hover {
+    /* expand a bit*/
+      transform: scale(1.1);
+}

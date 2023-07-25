@@ -1,45 +1,13 @@
-.app_page1 {
-   margin: 0;
-   overflow: hidden;
-   height:100%;
- }
- 
- @media (min-width: 768px){
-   #left {
-     position: absolute;
-     top: 0px;
-     bottom: 0;
-     left: 0;
-     width: 30%;
-     overflow-y: scroll; 
-   }
+.card{
+   
+  background: #fff;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
 
-   #right {
-     position: absolute;
-     top: 0;
-     bottom: 0;
-     right: 0;
-     overflow-y: scroll;
-     width: 70%;
-   }
- }
- 
- #left {
-   text-align: center;
-   height:100%;
- }
+cursor: pointer;
+}
 
- 
- #right {
-   height:100%;
- }
- 
- h4{
-   padding: 10px 0; 
- }
- 
- .tool-card{
-   border: 2px solid black;
-   padding: 10px 10px;
-   margin: 10px 0;
- }
+.card:hover{
+   transform: scale(1.05);
+box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}

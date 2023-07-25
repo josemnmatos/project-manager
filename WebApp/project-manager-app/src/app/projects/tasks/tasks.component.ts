@@ -12,11 +12,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./tasks.component.css'],
 })
 export class TasksComponent {
-  project: Project | undefined;
-  tasks: Task[] = [];
-  activeTask: Task | undefined;
-  activeTaskId: number | undefined;
-  sub! : Subscription;
+  project?: Project;
+  sub!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,38 +23,23 @@ export class TasksComponent {
 
   ngOnInit(): void {
     //get project id from route
-    const routeParams = this.route.snapshot.paramMap;
-    const projectIdFromRoute = Number(routeParams.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!id) {
+      this.router.navigate(['/projects']);
+    }
 
-    //get tasks from service
-    this.sub = this.projectService
-        .getTasksForProject(projectIdFromRoute)
-        .subscribe({
-          next: (tasks) => {
-            this.tasks = tasks;
-          },
-        });
-  }
+    // load the project
+    this.sub = this.projectService.getProjectById(id).subscribe((project) => {
+      this.project = project;
+    });
 
-  ngOnChanges(): void {
-    console.log(this.project);
-    console.log(this.tasks);
+    // load the tasks
+    this.sub = this.projectService.getTasksForProject(id).subscribe((tasks) => {
+      this.project!.tasks = tasks;
+    });
   }
 
   ngOnDestroy(): void {
-    console.log(this.project);
-    console.log(this.tasks);
     this.sub.unsubscribe();
   }
-
-  setActiveTask(id: number): void {
-    this.activeTaskId = id;
-    this.activeTask = this.tasks.find((task) => task.id === id);
-    console.log(this.activeTask);
-  }
-
-
-  
-
-
 }

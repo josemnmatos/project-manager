@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Project } from './project';
 import { ProjectService } from './project.service';
 import { Task } from './task';
@@ -7,34 +7,43 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.css'],
 })
-export class ProjectsComponent {
-  projects : Project[] = [];
-  activeProject : Project | undefined;
-  activeProjectId : number | undefined;
-  sub! : Subscription;
+export class ProjectsComponent implements OnInit {
+  activeProjects: Project[] = [];
+  sub!: Subscription;
 
-  constructor(private projectService: ProjectService) {};
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    this.sub = this.projectService.getProjects().subscribe({
-      next: projects => {
-        this.projects = projects;
-      }
+    // load projects
+    this.sub = this.projectService.getProjects().subscribe((projects) => {
+      let received = projects;
+      this.activeProjects = received;
+      // load tasks
+      this.loadTasks();
+      // sort by task count descending
+
+      this.activeProjects.sort((a, b) => {
+        return b.tasks.length - a.tasks.length;
+      });
     });
+  }
+
+  ngOnChanges(): void {}
+
+  loadTasks() {
+    //console.log(this.activeProjects.length);
+    for (let project of this.activeProjects) {
+      this.projectService.getTasksForProject(project.id).subscribe((tasks) => {
+        let received = tasks;
+        project.tasks = received;
+        //console.log(project.tasks);
+      });
+    }
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-
-  setActiveProject(id: number) : void {
-    this.activeProjectId = id;
-    this.activeProject = this.projects.find(project => project.id === id);
-    console.log(this.activeProject);
-  }
-
-
-
 }

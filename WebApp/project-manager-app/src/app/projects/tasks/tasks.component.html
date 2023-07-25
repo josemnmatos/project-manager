@@ -1,32 +1,67 @@
+<div class="row text-center m-3">
+  <h1>Tasks for <span class=" text-primary">{{project?.name}}</span></h1>
+</div>
 
-<div class="app_page1">
-   <div class="row">
-       <div class="col-sm-4" id="left">
-         <div class="row bg-light border-bottom">
+<div class="container">
+  <hr>
+  <div class="row row-cols-1 row-cols-md-2 mt-4">
+    <div class="col mb-4" *ngFor="let task of project?.tasks">
+      <div class="card m-2 shadow">
+        <a href="" class=" stretched-link"></a>
+        <div class="card-header"
+          [ngClass]="task.state == 1 ? 'bg-danger-subtle' : task.state == 2? 'bg-warning-subtle' : 'bg-success-subtle'">
 
-            <h4>Tasks</h4>
-         </div>
-
-
-         <div class="list-group list-group-flush">
-            <a *ngFor="let task of tasks"
-            [ngClass]="(activeTask?.id === task.id) ? 'active' : task.state==3 ? 'list-group-item-success' : task.state==2 ? 'list-group-item-warning' : 'list-group-item-danger'"
-            
-            class="list-group-item list-group-item-action py-3 lh-sm rounded-4 mt-3 shadow p-3 mb-2"
-            
-            href="#" onclick="return false;"
-            (click) = 'setActiveTask(task.id)'>
-              <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">{{task.name}}</strong>
-                <small>{{task.deadline | date}}</small>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            <div class="row">
+              <div class=" col-md-7">
+                <h4 class="card-title fw-medium">{{task.name}}</h4>
               </div>
-              <div class="col-10 mb-1 small">{{task.description}}</div>
-            </a>
+              <div class=" col-md-4 text-end mt-3">
+                <h5>
+                  <span *ngIf="task.state==1">Not Assigned</span>
+                  <span *ngIf="task.state==2">Pending</span>
+                  <span *ngIf="task.state==3">Completed</span>
+                </h5>
+
+              </div>
+              <div class=" col-md-1 text-start ms-0 mt-2" style=" font-size: 1.5rem;">
+                <span>
+                  <i *ngIf="task.state==1" class="bi bi-person-x-fill" style="color: red;"></i>
+                  <i *ngIf="task.state==2" class="bi bi-hourglass-split" style="color: orange;"></i>
+                  <i *ngIf="task.state==3" class="bi bi-check-circle-fill" style="color: green;"></i>
+                </span>
+              </div>
+
+            </div>
+
           </div>
-       </div>
-       <div class="col-sm-4" id="right">
-         
-           <app-task-details [task]="activeTask"></app-task-details>
-       </div>
-   </div>
- </div>
+
+          <div class="card-text">
+            <div class="row">
+              <div class="col-md-6">
+                <p class=" fst-italic">Description</p>
+                <p>{{task.description}}</p>
+              </div>
+              <div class="col-md-6 text-end">
+                <p class=" fst-italic ">Deadline</p>
+                <p>{{task.deadline | date}}</p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="text-center mb-5 mt-3">
+      <button class="btn btn-primary fw-bold p-3 w-50 shadow">Add Task</button>
+    </div>
+
+  </div>
+
+</div>

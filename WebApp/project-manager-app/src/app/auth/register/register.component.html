@@ -1,0 +1,44 @@
+<div class="container w-50 p-5 bg-light rounded-5 mt-5">
+   <h1 class="text-center">Register</h1>
+
+   <div class="btn-group w-100 mt-4" role="group">
+      <button class="btn" [ngClass]="accountType=='manager' ? 'btn-primary' : 'btn-outline-primary'"
+         (click)="changeAccountType()">Manager</button>
+      <button class="btn" [ngClass]="accountType=='developer' ? 'btn-primary' : 'btn-outline-primary'"
+         (click)="changeAccountType()">Developer</button>
+
+      
+   </div>
+
+
+   <form action="" class=" form-control-lg">
+      <div class="row p-3">
+         <label for="">Username</label>
+         <input type="text" class=" rounded-2 form-text">
+      </div>
+      <div class="row p-3">
+         <label for="">Email</label>
+         <input type="email" class="rounded-2 form-text">
+      </div>
+      <div class="row p-3">
+         <label for="">Password</label>
+         <input type="password" class="rounded-2 form-text">
+      </div>
+      <div class="row p-3">
+         <label for="">Confirm password</label>
+         <input type="password" class="rounded-2 form-text">
+      </div>
+   </form>
+
+   <div class="row p-3">
+      <button class="btn btn-primary">Register</button>
+   </div>
+
+   <div class="row text-center mt-4">
+      <a href="/login">
+         <p>Already have an account?</p>
+         <br>
+      </a>
+   </div>
+
+</div>

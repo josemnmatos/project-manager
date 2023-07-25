@@ -1,29 +1,65 @@
+<div class="row text-center m-3">
+  <h1>Projects</h1>
+</div>
 
-<div class="app_page1">
-   <div class="row">
-       <div class="col-sm-4" id="left">
-         <div class="row bg-light">
-            <h4>Your projects</h4>
-         </div>
+<div class="container">
+  <hr>
+  <div class="row row-cols-1 row-cols-md-2 mt-4">
+    <div class="col mb-4" *ngFor="let project of activeProjects">
+      <div class="card m-2 shadow">
+        <a href="/projects/{{project.id}}" class=" stretched-link"></a>
+        <div class="card-header bg-primary-subtle">
+
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{project.name}}</h5>
+          <div class="card-text">
 
 
-         <div class="list-group list-group-flush">
-            <a *ngFor="let project of projects"
-            [ngClass]="(activeProject?.id === project.id) ? 'active' : ''"
-            class="list-group-item list-group-item-action py-3 lh-sm rounded-4 mt-3 shadow p-3 mb-2 " 
-            href="#" onclick="return false;"
-            (click) = 'setActiveProject(project.id)'>
-              <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1">{{project.name}}</strong>
-                <small>{{project.id}}</small>
+            <div *ngIf="project.tasks.length == 0" class="row">
+              <div class="">
+                This project has no tasks assigned yet.
               </div>
-              <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the project name.</div>
-            </a>
+            </div>
+
+
+            <div *ngIf="project.tasks.length > 0" class="row">
+              <p class=" fst-italic ">Upcoming Tasks</p>
+              <div class="col-md-4 fw-semibold">
+                Task
+              </div>
+              <div class="col-md-3 text-center fw-semibold">
+                State
+              </div>
+              <div class="col-md-4 text-end fw-semibold">
+                Deadline
+              </div>
+            </div>
+            <div class="row mt-2" *ngFor="let task of project.tasks">
+              <div class="col-md-4">
+                {{task.name}}
+              </div>
+              <div class="col-md-3 text-center">
+                <i *ngIf="task.state==1" class="bi bi-person-x-fill" style="color: red;"></i>
+                <i *ngIf="task.state==2" class="bi bi-hourglass-split" style="color: orange;"></i>
+                <i *ngIf="task.state==3" class="bi bi-check-circle-fill" style="color: green;"></i>
+
+              </div>
+              <div class="col-md-4 text-end">
+                {{task.deadline | date: 'dd/MM'}}
+              </div>
+            </div>
           </div>
-       </div>
-       <div class="col-sm-4" id="right">
-         <app-project-details [project]="activeProject"></app-project-details>
-           
-       </div>
-   </div>
- </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="text-center mb-5 mt-3">
+      <button class="btn btn-primary fw-bold p-3 w-50 shadow">New Project</button>
+    </div>
+
+  </div>
+
+</div>

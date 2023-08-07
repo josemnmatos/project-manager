@@ -14,8 +14,12 @@ const routes: Routes = [
   { path:"projects", component: ProjectsComponent },
   { path:"projects/:id", component: ProjectDetailsComponent},
   { path:"projects/:id/tasks", component: TasksComponent},
+  
   { path:"login", component: LoginComponent },
   { path:"register", component: RegisterComponent },
+  { path:"**", redirectTo: "", pathMatch: "full" }
+
+
 ];
 
 @NgModule({

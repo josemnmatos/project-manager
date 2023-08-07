@@ -6,13 +6,13 @@
   <hr>
   <div class="row row-cols-1 row-cols-md-2 mt-4">
     <div class="col mb-4" *ngFor="let project of activeProjects">
-      <div class="card m-2 shadow">
+      <div class="card m-2 shadow rounded-2">
         <a href="/projects/{{project.id}}" class=" stretched-link"></a>
-        <div class="card-header bg-primary-subtle">
+        <div class="card-header bg-primary">
 
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{project.name}}</h5>
+          <h5 class="card-title fw-bold">{{project.name}}</h5>
           <div class="card-text">
 
 

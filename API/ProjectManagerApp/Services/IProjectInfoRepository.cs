@@ -33,6 +33,11 @@ namespace ProjectManagerApp.Services
 
         Task<IEnumerable<Entities.Task>> GetTasksByDeveloperAsync(int developerId);
 
+
+        //User methods implementation
+        //_____________________________________________________________________
+        Task<IEnumerable<Entities.User>> GetUsersAsync();
+
         //Manager methods implementation
         //_____________________________________________________________________
         Task<bool> ManagerExistsAsync(int managerId);
@@ -46,6 +51,8 @@ namespace ProjectManagerApp.Services
         //Other repository methods 
         //_______________________________________________________________
         Task<bool> SaveChangesAsync();
+
+
 
 
 

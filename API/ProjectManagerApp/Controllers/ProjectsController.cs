@@ -36,7 +36,7 @@ namespace ProjectManagerApp.Controllers
             }
 
             var projectEntities = await _projectInfoRepository.GetProjectsAsync(managerId);
-            return Ok(_mapper.Map<IEnumerable<ProjectWithoutTasksDto>>(projectEntities));
+            return Ok(_mapper.Map<IEnumerable<ProjectDto>>(projectEntities));
         }
 
 

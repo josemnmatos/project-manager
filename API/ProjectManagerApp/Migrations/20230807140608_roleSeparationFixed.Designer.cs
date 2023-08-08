@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectManagerApp.DbContexts;
 
@@ -11,9 +12,10 @@ using ProjectManagerApp.DbContexts;
 namespace ProjectManagerApp.Migrations
 {
     [DbContext(typeof(ProjectManagerContext))]
-    partial class ProjectManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20230807140608_roleSeparationFixed")]
+    partial class roleSeparationFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,7 +191,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 1,
-                            Deadline = new DateTime(2023, 9, 8, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4260),
+                            Deadline = new DateTime(2023, 9, 7, 14, 6, 7, 740, DateTimeKind.Utc).AddTicks(2269),
                             Description = "Build buttons and outer interface",
                             DeveloperId = 2,
                             Name = "Build Interface",
@@ -199,7 +201,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 2,
-                            Deadline = new DateTime(2023, 9, 8, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4266),
+                            Deadline = new DateTime(2023, 9, 7, 14, 6, 7, 740, DateTimeKind.Utc).AddTicks(2274),
                             Description = "Build logic for the sum operation",
                             DeveloperId = 2,
                             Name = "Make sum logic",
@@ -209,7 +211,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 3,
-                            Deadline = new DateTime(2023, 9, 12, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4267),
+                            Deadline = new DateTime(2023, 9, 11, 14, 6, 7, 740, DateTimeKind.Utc).AddTicks(2275),
                             Description = "Build logic for the multiplication operation",
                             DeveloperId = 3,
                             Name = "Make multiplication logic",
@@ -219,7 +221,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 4,
-                            Deadline = new DateTime(2023, 10, 7, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4267),
+                            Deadline = new DateTime(2023, 10, 6, 14, 6, 7, 740, DateTimeKind.Utc).AddTicks(2276),
                             Description = "Integrate App with an Weather API",
                             DeveloperId = 3,
                             Name = "Integrate Weather API",
@@ -229,7 +231,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 5,
-                            Deadline = new DateTime(2023, 10, 7, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4268),
+                            Deadline = new DateTime(2023, 10, 6, 14, 6, 7, 740, DateTimeKind.Utc).AddTicks(2277),
                             Description = "Build a search bar for user search",
                             DeveloperId = 2,
                             Name = "Make a search bar",
@@ -239,7 +241,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 6,
-                            Deadline = new DateTime(2023, 11, 6, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4269),
+                            Deadline = new DateTime(2023, 11, 5, 14, 6, 7, 740, DateTimeKind.Utc).AddTicks(2277),
                             Description = "Deploy app online",
                             DeveloperId = 3,
                             Name = "Deploy app",

@@ -10,20 +10,60 @@ namespace ProjectManagerApp.DbContexts
         public DbSet<Entities.Task> Tasks { get; set; } = null!;
         public DbSet<Developer> Developers { get; set; } = null!;
         public DbSet<Manager> Managers { get; set; } = null!;
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Tasks)
+                .WithOne(t => t.ProjectAssociatedTo)
+                .HasForeignKey(t => t.ProjectId)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .HasData(
+                new User(
+                    "John",
+                    "Marks",
+                    "johnmanager@email.com",
+                    "password",
+                    "manager")
+                {
+                    Id = 1,
+                }, 
+                new User(
+                    "Mark",
+                    "Anthony",
+                    "markdev@email.com",
+                    "passwordmark",
+                    "developer")
+                {
+                    Id = 2,
+                }, 
+                new User(
+                    "Anna",
+                    "Peters",
+                    "annadev@email.com",
+                    "passwordanna",
+                    "developer")
+                {
+                    Id = 3,
+                });
+
             modelBuilder.Entity<Manager>()
                 .HasData(
                 new Manager(
-                    "John",
                     "johnmanager@email.com",
-                    "password")
+                    "John",
+                    "Marks")
                 {
-                    Id = 1,
+                    UserId = 1,
+                    Id= 1
                 });
 
-
+        
             modelBuilder.Entity<Project>()
                 .HasData(
                 new Project("Calculator")
@@ -43,18 +83,20 @@ namespace ProjectManagerApp.DbContexts
             modelBuilder.Entity<Developer>()
                 .HasData(
                 new Developer(
+                    "jmarkdev@email.com",
                     "Mark",
-                    "markdev@email.com",
-                    "passwordmark")
+                    "Anthony")
                 {
-                    Id = 2,
+                    UserId = 2,
+                    Id= 1,
                 },
                 new Developer(
-                    "Anna",
                     "annadev@email.com",
-                    "passwordanna")
+                    "Anna",
+                    "Peters")
                 {
-                    Id = 3,
+                    UserId = 3,
+                    Id = 2
                 }
                 );
 

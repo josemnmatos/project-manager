@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectManagerApp.DbContexts;
 
@@ -11,9 +12,10 @@ using ProjectManagerApp.DbContexts;
 namespace ProjectManagerApp.Migrations
 {
     [DbContext(typeof(ProjectManagerContext))]
-    partial class ProjectManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20230807133838_role_separation")]
+    partial class role_separation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,7 +191,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 1,
-                            Deadline = new DateTime(2023, 9, 8, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4260),
+                            Deadline = new DateTime(2023, 9, 7, 13, 38, 38, 205, DateTimeKind.Utc).AddTicks(7400),
                             Description = "Build buttons and outer interface",
                             DeveloperId = 2,
                             Name = "Build Interface",
@@ -199,7 +201,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 2,
-                            Deadline = new DateTime(2023, 9, 8, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4266),
+                            Deadline = new DateTime(2023, 9, 7, 13, 38, 38, 205, DateTimeKind.Utc).AddTicks(7406),
                             Description = "Build logic for the sum operation",
                             DeveloperId = 2,
                             Name = "Make sum logic",
@@ -209,7 +211,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 3,
-                            Deadline = new DateTime(2023, 9, 12, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4267),
+                            Deadline = new DateTime(2023, 9, 11, 13, 38, 38, 205, DateTimeKind.Utc).AddTicks(7406),
                             Description = "Build logic for the multiplication operation",
                             DeveloperId = 3,
                             Name = "Make multiplication logic",
@@ -219,7 +221,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 4,
-                            Deadline = new DateTime(2023, 10, 7, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4267),
+                            Deadline = new DateTime(2023, 10, 6, 13, 38, 38, 205, DateTimeKind.Utc).AddTicks(7407),
                             Description = "Integrate App with an Weather API",
                             DeveloperId = 3,
                             Name = "Integrate Weather API",
@@ -229,7 +231,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 5,
-                            Deadline = new DateTime(2023, 10, 7, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4268),
+                            Deadline = new DateTime(2023, 10, 6, 13, 38, 38, 205, DateTimeKind.Utc).AddTicks(7408),
                             Description = "Build a search bar for user search",
                             DeveloperId = 2,
                             Name = "Make a search bar",
@@ -239,7 +241,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 6,
-                            Deadline = new DateTime(2023, 11, 6, 9, 36, 19, 132, DateTimeKind.Utc).AddTicks(4269),
+                            Deadline = new DateTime(2023, 11, 5, 13, 38, 38, 205, DateTimeKind.Utc).AddTicks(7409),
                             Description = "Deploy app online",
                             DeveloperId = 3,
                             Name = "Deploy app",
@@ -284,27 +286,27 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "johnmanager@email.com",
-                            FirstName = "John",
-                            LastName = "Marks",
+                            Email = "John",
+                            FirstName = "Marks",
+                            LastName = "johnmanager@email.com",
                             Password = "password",
                             Role = "manager"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "markdev@email.com",
-                            FirstName = "Mark",
-                            LastName = "Anthony",
+                            Email = "Mark",
+                            FirstName = "Anthony",
+                            LastName = "markdev@email.com",
                             Password = "passwordmark",
                             Role = "developer"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "annadev@email.com",
-                            FirstName = "Anna",
-                            LastName = "Peters",
+                            Email = "Anna",
+                            FirstName = "Peters",
+                            LastName = "annadev@email.com",
                             Password = "passwordanna",
                             Role = "developer"
                         });

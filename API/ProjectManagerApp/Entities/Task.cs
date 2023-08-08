@@ -28,7 +28,7 @@ namespace ProjectManagerApp.Entities
         public DateTime Deadline { get; set; }
 
         [ForeignKey("ProjectId")]
-        public Project ProjectAssociatedTo { get; set; }
+        public Project ProjectAssociatedTo { get; set; } = null!;
 
         public int ProjectId { get; set; }
 

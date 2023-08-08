@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using ProjectManagerApp.DbContexts;
 
 namespace ProjectManagerApp.Services
@@ -13,9 +14,19 @@ namespace ProjectManagerApp.Services
         }
 
 
+        public async Task<IEnumerable<Entities.User>> GetUsersAsync()
+        {
+            return await _context.Users.OrderBy(p => p.Id).ToListAsync();
+        }
+
+
         public async Task<IEnumerable<Entities.Project>> GetProjectsAsync()
         {
-            return await _context.Projects.OrderBy(p => p.Name).ToListAsync();
+            var a = await _context.Projects.Include( p => p.Tasks).OrderBy(p => p.Name).ToListAsync();
+
+            Console.Write(a.ToString());
+
+            return a;
         }
 
         public async Task<IEnumerable<Entities.Project>> GetProjectsAsync(int? managerId)

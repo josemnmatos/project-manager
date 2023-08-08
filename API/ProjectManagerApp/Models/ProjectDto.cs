@@ -12,7 +12,7 @@ namespace ProjectManagerApp.Models
 
         public int ManagerId { get; set; }
 
-        public ICollection<Entities.Task> Tasks { get; set; } = new List<Entities.Task>();
+        public virtual ICollection<TaskDto> Tasks { get; set; } = new List<TaskDto>();
 
 
     }

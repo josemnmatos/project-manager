@@ -49,6 +49,23 @@ export class ProjectService {
       );
   }
 
+
+  getTaskById(projectId: number, taskId: number): Observable<Task> {
+    return this.http
+      .get<Task>(
+        this.buildUrlTaskString(this.individualProjectUrl, projectId) + '/' + taskId
+      )
+      .pipe(
+        tap((data) => console.log('All: ' + JSON.stringify(data))),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
+      );
+  }
+
+
+
   buildUrlTaskString(individualProjectUrl: string, projectId: number) {
     return individualProjectUrl + projectId + '/tasks';
   }

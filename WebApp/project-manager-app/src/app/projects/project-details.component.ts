@@ -30,11 +30,6 @@ export class ProjectDetailsComponent {
     this.sub = this.projectService.getProjectById(id).subscribe((project) => {
       this.project = project;
     });
-
-    // load the tasks
-    this.sub = this.projectService.getTasksForProject(id).subscribe((tasks) => {
-      this.project!.tasks = tasks;
-    });
   }
 
   ngOnDestroy(): void {

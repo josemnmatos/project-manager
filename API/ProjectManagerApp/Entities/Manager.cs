@@ -22,6 +22,8 @@ namespace ProjectManagerApp.Entities
         [Required]
         public string LastName { get; set; }
 
+        public ICollection<Entities.Project> Projects { get; set; } = new List<Project>();
+
         public Manager(string email, string firstName, string lastName)
         {
             Email = email;

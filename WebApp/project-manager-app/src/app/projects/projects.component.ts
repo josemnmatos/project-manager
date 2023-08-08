@@ -20,8 +20,6 @@ export class ProjectsComponent implements OnInit {
     this.sub = this.projectService.getProjects().subscribe((projects) => {
       let received = projects;
       this.activeProjects = received;
-      // load tasks
-      this.loadTasks();
       // sort by task count descending
 
       this.activeProjects.sort((a, b) => {
@@ -31,17 +29,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnChanges(): void {}
-
-  loadTasks() {
-    //console.log(this.activeProjects.length);
-    for (let project of this.activeProjects) {
-      this.projectService.getTasksForProject(project.id).subscribe((tasks) => {
-        let received = tasks;
-        project.tasks = received;
-        //console.log(project.tasks);
-      });
-    }
-  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

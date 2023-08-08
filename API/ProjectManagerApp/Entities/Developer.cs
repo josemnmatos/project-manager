@@ -21,6 +21,8 @@ namespace ProjectManagerApp.Entities
         [Required]
         public string LastName { get; set; }
 
+        public ICollection<Entities.Task> Tasks { get; set; } = new List<Task>();
+
         //maybe add developer area?
 
 

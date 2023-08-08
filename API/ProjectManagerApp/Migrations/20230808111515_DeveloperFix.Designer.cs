@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectManagerApp.DbContexts;
 
@@ -11,9 +12,10 @@ using ProjectManagerApp.DbContexts;
 namespace ProjectManagerApp.Migrations
 {
     [DbContext(typeof(ProjectManagerContext))]
-    partial class ProjectManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20230808111515_DeveloperFix")]
+    partial class DeveloperFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,9 +191,9 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 1,
-                            Deadline = new DateTime(2023, 9, 8, 11, 21, 22, 733, DateTimeKind.Utc).AddTicks(41),
+                            Deadline = new DateTime(2023, 9, 8, 11, 15, 14, 751, DateTimeKind.Utc).AddTicks(4954),
                             Description = "Build buttons and outer interface",
-                            DeveloperId = 1,
+                            DeveloperId = 2,
                             Name = "Build Interface",
                             ProjectId = 1,
                             State = 2
@@ -199,7 +201,7 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 2,
-                            Deadline = new DateTime(2023, 9, 8, 11, 21, 22, 733, DateTimeKind.Utc).AddTicks(47),
+                            Deadline = new DateTime(2023, 9, 8, 11, 15, 14, 751, DateTimeKind.Utc).AddTicks(4960),
                             Description = "Build logic for the sum operation",
                             DeveloperId = 2,
                             Name = "Make sum logic",
@@ -209,9 +211,9 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 3,
-                            Deadline = new DateTime(2023, 9, 12, 11, 21, 22, 733, DateTimeKind.Utc).AddTicks(48),
+                            Deadline = new DateTime(2023, 9, 12, 11, 15, 14, 751, DateTimeKind.Utc).AddTicks(4961),
                             Description = "Build logic for the multiplication operation",
-                            DeveloperId = 2,
+                            DeveloperId = 3,
                             Name = "Make multiplication logic",
                             ProjectId = 1,
                             State = 2
@@ -219,9 +221,9 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 4,
-                            Deadline = new DateTime(2023, 10, 7, 11, 21, 22, 733, DateTimeKind.Utc).AddTicks(50),
+                            Deadline = new DateTime(2023, 10, 7, 11, 15, 14, 751, DateTimeKind.Utc).AddTicks(4962),
                             Description = "Integrate App with an Weather API",
-                            DeveloperId = 2,
+                            DeveloperId = 3,
                             Name = "Integrate Weather API",
                             ProjectId = 2,
                             State = 3
@@ -229,9 +231,9 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 5,
-                            Deadline = new DateTime(2023, 10, 7, 11, 21, 22, 733, DateTimeKind.Utc).AddTicks(50),
+                            Deadline = new DateTime(2023, 10, 7, 11, 15, 14, 751, DateTimeKind.Utc).AddTicks(4963),
                             Description = "Build a search bar for user search",
-                            DeveloperId = 1,
+                            DeveloperId = 2,
                             Name = "Make a search bar",
                             ProjectId = 2,
                             State = 2
@@ -239,9 +241,9 @@ namespace ProjectManagerApp.Migrations
                         new
                         {
                             Id = 6,
-                            Deadline = new DateTime(2023, 11, 6, 11, 21, 22, 733, DateTimeKind.Utc).AddTicks(51),
+                            Deadline = new DateTime(2023, 11, 6, 11, 15, 14, 751, DateTimeKind.Utc).AddTicks(4964),
                             Description = "Deploy app online",
-                            DeveloperId = 2,
+                            DeveloperId = 3,
                             Name = "Deploy app",
                             ProjectId = 2,
                             State = 1

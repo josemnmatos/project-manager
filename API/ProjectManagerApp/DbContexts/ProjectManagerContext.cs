@@ -10,7 +10,7 @@ namespace ProjectManagerApp.DbContexts
         public DbSet<Entities.Task> Tasks { get; set; } = null!;
         public DbSet<Developer> Developers { get; set; } = null!;
         public DbSet<Manager> Managers { get; set; } = null!;
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +21,23 @@ namespace ProjectManagerApp.DbContexts
                 .WithOne(t => t.ProjectAssociatedTo)
                 .HasForeignKey(t => t.ProjectId)
                 .IsRequired();
+
+            modelBuilder.Entity<Developer>()
+                .HasMany(d => d.Tasks)
+                .WithOne(t => t.DeveloperAssignedTo)
+                .HasForeignKey(t => t.DeveloperId)
+                .IsRequired(false);
+
+
+            modelBuilder.Entity<Manager>()
+                .HasMany(m => m.Projects)
+                .WithOne(p => p.ManagerAssignedTo)
+                .HasForeignKey(p => p.ManagerId)
+                .IsRequired();
+
+
+
+
 
             modelBuilder.Entity<User>()
                 .HasData(
@@ -51,6 +68,8 @@ namespace ProjectManagerApp.DbContexts
                 {
                     Id = 3,
                 });
+
+
 
             modelBuilder.Entity<Manager>()
                 .HasData(
@@ -108,7 +127,7 @@ namespace ProjectManagerApp.DbContexts
                     Id = 1,
                     Description = "Build buttons and outer interface",
                     State = CurrentState.AssignedWaitingCompletion,
-                    DeveloperId = 2,
+                    DeveloperId = 1,
                     Deadline = DateTime.UtcNow.AddDays(31),
                     ProjectId = 1,
                 },
@@ -126,7 +145,7 @@ namespace ProjectManagerApp.DbContexts
                     Id = 3,
                     Description = "Build logic for the multiplication operation",
                     State = CurrentState.AssignedWaitingCompletion,
-                    DeveloperId = 3,
+                    DeveloperId = 2,
                     Deadline = DateTime.UtcNow.AddDays(35),
                     ProjectId = 1,
                 },
@@ -135,7 +154,7 @@ namespace ProjectManagerApp.DbContexts
                     Id = 4,
                     Description = "Integrate App with an Weather API",
                     State = CurrentState.Completed,
-                    DeveloperId = 3,
+                    DeveloperId = 2,
                     Deadline = DateTime.UtcNow.AddDays(60),
                     ProjectId = 2,
                 },
@@ -144,7 +163,7 @@ namespace ProjectManagerApp.DbContexts
                     Id = 5,
                     Description = "Build a search bar for user search",
                     State = CurrentState.AssignedWaitingCompletion,
-                    DeveloperId = 2,
+                    DeveloperId = 1,
                     Deadline = DateTime.UtcNow.AddDays(60),
                     ProjectId = 2,
                 },
@@ -153,7 +172,7 @@ namespace ProjectManagerApp.DbContexts
                     Id = 6,
                     Description = "Deploy app online",
                     State = CurrentState.NotAssigned,
-                    DeveloperId = 3,
+                    DeveloperId = 2,
 
                     Deadline = DateTime.UtcNow.AddDays(90),
                     ProjectId = 2,
@@ -166,6 +185,8 @@ namespace ProjectManagerApp.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
+           
             optionsBuilder.UseSqlServer(
                 new SqlConnectionStringBuilder()
                 {

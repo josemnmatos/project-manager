@@ -31,7 +31,6 @@ namespace ProjectManagerApp.Services
 
         void DeleteTask(Entities.Task task);
 
-        Task<IEnumerable<Entities.Task>> GetTasksByDeveloperAsync(int developerId);
 
 
         //User methods implementation
@@ -47,6 +46,11 @@ namespace ProjectManagerApp.Services
         //_____________________________________________________________________
         Task<bool> DeveloperExistsAsync(int developerId);
 
+        Task<IEnumerable<Entities.Developer>> GetDevelopersAsync();
+
+        Task<Entities.Developer> GetDeveloperAsync(int developerId);
+
+        
 
         //Other repository methods 
         //_______________________________________________________________

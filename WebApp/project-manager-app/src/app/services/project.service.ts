@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Project, NewProject } from './project';
-import { Task } from './task';
+import { Project, NewProject } from '../shared/project';
+import { Task } from '../shared/task';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { GlobalConstants } from '../shared/global-constants';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',

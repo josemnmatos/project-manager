@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from './project';
+import { Project } from '../../shared/project';
 import { Subscription } from 'rxjs';
-import { ProjectService } from './project.service';
-import { Manager } from '../shared/manager';
+import { ProjectService } from '../../services/project.service';
+import { Manager } from '../../shared/manager';
 
 @Component({
   selector: 'app-project-details',

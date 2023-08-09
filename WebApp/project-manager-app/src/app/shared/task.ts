@@ -1,4 +1,4 @@
-import { Developer } from "../shared/developer";
+import { Developer } from "./developer";
 
 export interface Task {
   id: number;

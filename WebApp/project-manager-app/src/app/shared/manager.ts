@@ -1,4 +1,4 @@
-import { Project } from '../projects/project';
+import { Project } from './project';
 
 export interface Manager {
   id: number;

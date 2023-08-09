@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectsComponent } from './projects/projects.component';
 import { HomeComponent } from './home/home.component';
-import { ProjectDetailsComponent } from './projects/project-details.component';
+import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { TasksComponent } from './projects/tasks/tasks.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { TaskDetailsComponent } from './projects/tasks/task-details.component';
-import { AuthGuard } from './auth/auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 
 

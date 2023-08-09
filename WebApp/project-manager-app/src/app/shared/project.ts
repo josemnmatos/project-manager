@@ -1,4 +1,4 @@
-import { Manager } from '../shared/manager';
+import { Manager } from './manager';
 import { Task } from './task';
 
 export interface Project {

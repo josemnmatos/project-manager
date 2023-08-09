@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Project, NewProject } from './project';
-import { ProjectService } from './project.service';
+import { Project, NewProject } from '../../shared/project';
+import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
 
 @Component({

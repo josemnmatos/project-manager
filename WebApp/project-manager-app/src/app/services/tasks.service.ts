@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
-import { Project } from '../project';
-import { Task } from '../task';
+import { Project } from '../shared/project';
+import { Task } from '../shared/task';
 
 @Injectable({
   providedIn: 'root',

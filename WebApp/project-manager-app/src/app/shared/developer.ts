@@ -1,4 +1,4 @@
-import { Task } from '../projects/task';
+import { Task } from './task';
 
 export interface Developer {
   id: number;

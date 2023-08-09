@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from '../project';
-import { Task } from '../task';
+import { Project } from '../../shared/project';
+import { Task } from '../../shared/task';
 import { Subscription } from 'rxjs';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-task-details',

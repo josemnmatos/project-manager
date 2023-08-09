@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalConstants } from '../shared/global-constants';
 import jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,9 @@ import jwt_decode from 'jwt-decode';
 export class AuthService {
   baseUrl = GlobalConstants.apiURL + 'users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, 
+              private router: Router          
+    ) {}
 
   private tokenKey = 'token';
 
@@ -29,6 +32,8 @@ export class AuthService {
     this.removeToken();
     this.removeRole();
     this.removeEmail();
+
+    this.router.navigate(['/login']);
   }
 
   setToken(token: string) {
@@ -85,7 +90,7 @@ export class AuthService {
 
   getDecodedToken() {
     try {
-      console.log(this.getToken());
+      //console.log(this.getToken());
 
       if (this.getToken() == null) {
         return null;
@@ -101,7 +106,7 @@ export class AuthService {
   isAuthenticated() {
     const token = this.getDecodedToken();
     if (token) {
-      console.log(token);
+      //console.log(token);
       // verify token later
 
       return true;

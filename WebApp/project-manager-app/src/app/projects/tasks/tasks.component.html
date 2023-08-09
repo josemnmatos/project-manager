@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid" style="width:90%">
   <div class=" row">
     <div class=" col-md-3 mt-3">
       <a href="/projects/{{project?.id}}"><button class=" btn btn-outline-primary w-50">Back</button></a>
@@ -11,7 +11,7 @@
   <h1>Tasks for <span class=" text-primary">{{project?.name}}</span></h1>
 </div>
 
-<div class="container">
+<div class="container-fluid" style="width:90%">
   <hr>
   <div class="row row-cols-1 row-cols-md-2">
     <div class="col mb-4" *ngFor="let task of project?.tasks">

@@ -1,6 +1,6 @@
 <div class="">
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand ms-4 me-4 display-6 fw-bold" href="#"><span class=" text-primary fw-bold"> &lt;/&gt; </span>PMP</a>
+      <a class="navbar-brand ms-4 me-4 display-6 fw-bold" href="#"><span class=" text-primary fw-bolder"> <i class="text-primary bi bi-code-slash"></i> </span> PMP</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -8,6 +8,7 @@
         <div class="navbar-nav">
           <a *ngIf="!isLogged()" [routerLink]="['/']" [routerLinkActiveOptions]="{exact:
             true}" [routerLinkActive]="['active']" class="nav-item nav-link" href="#">Home</a>
+          <a *ngIf="loggedIn" [routerLink]="['/dashboard']" [routerLinkActive]="['active']" class="nav-item nav-link" (click)="GoToDashboard()">Dashboard</a>
           <a *ngIf="loggedIn" [routerLink]="['/projects']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/projects">Projects</a>
           <a *ngIf="!isLogged()" [routerLink]="['/login']" [routerLinkActive]="['active']" class="nav-item nav-link justify-content-end" href="/login">Login</a>
           <a *ngIf="!loggedIn" [routerLink]="['/register']" [routerLinkActive]="['active']" class="nav-item nav-link justify-content-end" href="/register">Register</a>

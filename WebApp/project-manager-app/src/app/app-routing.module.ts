@@ -8,6 +8,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { TaskDetailsComponent } from './projects/tasks/task-details.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
+import { ManagerGuard } from './services/manager-guard.service';
 
 
 
@@ -17,13 +19,13 @@ const routes: Routes = [
   { path:"projects/:id", component: ProjectDetailsComponent, canActivate: [AuthGuard]},
   { path:"projects/:id/tasks", component: TasksComponent, canActivate: [AuthGuard]},
   { path:"projects/:projectid/tasks/:taskid", component: TaskDetailsComponent, canActivate: [AuthGuard]},
-
+  { path:"dashboard/manager", component:ManagerDashboardComponent, canActivate: [ManagerGuard]},
   //insert here
 
   
   { path:"login", component: LoginComponent },
   { path:"register", component: RegisterComponent },
-  { path:"**", redirectTo: "", pathMatch: "full" }
+  { path:"**", redirectTo: "/", pathMatch: "full" }
 
 
 ];

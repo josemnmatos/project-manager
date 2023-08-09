@@ -1,5 +1,5 @@
 <body class="text-center">
-   <div class="container">
+   <div class="container-fluid" style="width:90%">
       <br>
       <br>
       <br>  
@@ -20,7 +20,8 @@
                   <h1 class="cover-heading display-1"><span class=" text-primary "> &lt;/&gt; </span></h1>
                   <h4 class=" p-2 text-muted fst-italic">Your project management platform.</h4>
                   <br>
-                  <a href="/register" class="btn btn-lg btn-secondary">Get Started</a>
+                  <a *ngIf="!isLogged()" href="/register" class="btn btn-lg btn-secondary">Get Started</a>
+                  <a *ngIf="isLogged()" href="/projects" class="btn btn-lg btn-secondary">My Dashboard</a>
          
                </main>
             </div>

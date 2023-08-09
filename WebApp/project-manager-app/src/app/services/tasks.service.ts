@@ -7,7 +7,7 @@ import { Task } from '../shared/task';
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectService {
+export class TasksService {
   private projectsUrl = 'https://localhost:7136/api/projects';
 
   constructor(private http: HttpClient) {}

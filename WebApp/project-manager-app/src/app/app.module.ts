@@ -15,6 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CreateProjectComponent } from './projects/create-project/create-project.component';
 import { TaskCreationComponent } from './projects/tasks/task-creation.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
 
 
 
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     NavbarComponent,
     CreateProjectComponent,
-    TaskCreationComponent
+    TaskCreationComponent,
+    ManagerDashboardComponent
   ],
   imports: [
     BrowserModule,

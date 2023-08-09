@@ -4,6 +4,16 @@ namespace ProjectManagerApp.Services
     public interface IProjectInfoRepository
     {
 
+
+        //Authentication repository methods
+        //_______________________________________________________________
+        Task<bool> UserExistsAsync(string email);
+
+        Task<Entities.User> AuthenticateUserAsync(string email, string password);
+
+        Task AddUserAsync(Entities.User user);
+
+
         //Project repository methods 
         //_______________________________________________________________
         Task<IEnumerable<Entities.Project>> GetProjectsAsync();
@@ -41,6 +51,8 @@ namespace ProjectManagerApp.Services
         //_____________________________________________________________________
         Task<bool> ManagerExistsAsync(int managerId);
 
+        Task AddManagerAsync(Entities.Manager manager);
+
 
         //Developer methods implementation
         //_____________________________________________________________________
@@ -50,7 +62,9 @@ namespace ProjectManagerApp.Services
 
         Task<Entities.Developer> GetDeveloperAsync(int developerId);
 
-        
+        Task AddDeveloperAsync(Entities.Developer developer);
+
+
 
         //Other repository methods 
         //_______________________________________________________________

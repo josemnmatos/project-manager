@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from './project';
 import { Subscription } from 'rxjs';
 import { ProjectService } from './project.service';
+import { Manager } from '../shared/manager';
 
 @Component({
   selector: 'app-project-details',
@@ -12,6 +13,7 @@ import { ProjectService } from './project.service';
 export class ProjectDetailsComponent {
   sub!: Subscription;
   project?: Project;
+  
 
   constructor(
     private projectService: ProjectService,
@@ -29,6 +31,7 @@ export class ProjectDetailsComponent {
     // load the project
     this.sub = this.projectService.getProjectById(id).subscribe((project) => {
       this.project = project;
+      
     });
   }
 

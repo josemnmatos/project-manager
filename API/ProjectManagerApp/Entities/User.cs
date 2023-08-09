@@ -19,10 +19,12 @@ namespace ProjectManagerApp.Entities
         public string LastName { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string ?Password { get; set; }
 
         [Required]
         public string Role { get; set; }
+
+        public string ?Token { get; set; }
 
         public User(string firstName, string lastName, string email, string password, string role)
         {
@@ -32,6 +34,14 @@ namespace ProjectManagerApp.Entities
             Password = password;
             Role = role;
 
+        }
+
+        public User(string firstName, string lastName, string email, string role)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Role = role;
         }
     }
 }

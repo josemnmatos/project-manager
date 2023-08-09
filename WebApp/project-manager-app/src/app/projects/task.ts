@@ -1,9 +1,10 @@
+import { Developer } from "../shared/developer";
+
 export interface Task {
   id: number;
   name: string;
   description: string;
   state: number;
   deadline: Date;
-  developerId: number;
-  developer: string;
+  developerAssignedTo: Developer;
 }

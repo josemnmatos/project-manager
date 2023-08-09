@@ -14,7 +14,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CreateProjectComponent } from './projects/create-project.component';
 import { TaskCreationComponent } from './projects/tasks/task-creation.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -36,7 +36,8 @@ import { TaskCreationComponent } from './projects/tasks/task-creation.component'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [],

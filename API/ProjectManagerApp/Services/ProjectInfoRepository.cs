@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using ProjectManagerApp.DbContexts;
+using System.ComponentModel;
 
 namespace ProjectManagerApp.Services
 {
@@ -11,6 +12,68 @@ namespace ProjectManagerApp.Services
         public ProjectInfoRepository(ProjectManagerContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public async Task<bool> UserExistsAsync(string email)
+        {
+            return await _context.Users.Where(u=>u.Email==email).AnyAsync();
+        }
+
+        public async Task<Entities.User> AuthenticateUserAsync(string email, string password)
+        {
+            return await _context.Users.Where(u => u.Email==email && u.Password==password).FirstAsync();
+        }
+
+        public async Task AddUserAsync(Entities.User user)
+        {
+             using (var ctxt = new ProjectManagerContext())
+            {
+                using(var dbCtxtTransaction = ctxt.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        //add user to db
+                        ctxt.Users.Add(user);
+
+                        ctxt.SaveChanges();
+
+                        //get id from user added
+                        int userId = user.Id;
+
+                        //check role
+                        if (user.Role == "developer")
+                        {
+                            var dev = new Entities.Developer(user.Email, user.FirstName, user.LastName)
+                            {
+                                UserId = userId
+                            };
+
+                            ctxt.Developers.Add(dev);
+
+                        }
+                        else
+                        {
+                            var man = new Entities.Manager(user.Email, user.FirstName, user.LastName)
+                            {
+                                UserId = userId
+                            };
+
+                            ctxt.Managers.Add(man);
+
+                        }
+
+                        ctxt.SaveChanges();
+
+                        dbCtxtTransaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return;
+                    }
+                }
+                ctxt.SaveChangesAsync();
+            }
         }
 
 
@@ -90,11 +153,8 @@ namespace ProjectManagerApp.Services
             var a = await _context.Tasks
                 .Where(t1 => t1.ProjectId == projectId && t1.Id == taskId)
                 .Include(t => t.DeveloperAssignedTo)
-                .Include(t=> t.ProjectAssociatedTo)
+                .Include(t => t.ProjectAssociatedTo)
                 .FirstOrDefaultAsync();
-
-            Console.WriteLine(a.DeveloperAssignedTo.FirstName);
-            Console.WriteLine(a.ProjectAssociatedTo.Name);
 
 
             return a;
@@ -154,11 +214,17 @@ namespace ProjectManagerApp.Services
         //_____________________________________________________________________
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _context.SaveChangesAsync() >= 0);
+            return await _context.SaveChangesAsync() >= 0;
         }
 
+        public async Task AddManagerAsync(Entities.Manager manager)
+        {   
+            await _context.AddAsync(manager);
+        }
 
-
-
+        public async Task AddDeveloperAsync(Entities.Developer developer)
+        {
+            await _context.AddAsync(developer);
+        }
     }
 }

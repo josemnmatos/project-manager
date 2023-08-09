@@ -35,6 +35,8 @@ namespace ProjectManagerApp.DbContexts
                 .HasForeignKey(p => p.ManagerId)
                 .IsRequired();
 
+            
+
 
 
 

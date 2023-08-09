@@ -21,6 +21,26 @@
       </div>
    </div>
 
+   <div class="row pt-4 pb-2 ps-2  mt-2 mb-4 border rounded-4 border-4 border-secondary-subtle">
+      <div class="col-md-6">
+         <h5>
+            <p *ngIf="task?.state != 1" class=" fst-italic">Assigned to <span class="me-3 fw-bold">{{task?.developerAssignedTo?.firstName}}
+               {{task?.developerAssignedTo?.lastName}}</span> <span> <i class="bi bi-person-circle"></i></span>  </p>
+         </h5>
+         <h5>
+            <p *ngIf="task?.state == 1" class=" fst-italic fw-bold">This task has not yet been assigned to any
+               developer.</p>
+         </h5>
+      </div>
+      <div class="col-md-6 text-end">
+         <span *ngIf="task?.state != 1">
+            <button class="btn btn-primary align-content-end w-25">Go to profile</button>
+         </span>
+         <span *ngIf="task?.state == 1">
+            <button class="btn btn-primary align-content-end w-25">Assign</button>
+         </span>
+      </div>
+   </div>
 
    <div class="row pt-4 pb-2 ps-2  mt-2 mb-4 border rounded-4 border-4 border-secondary-subtle">
       <div class="col-md-6">
@@ -32,6 +52,8 @@
 
       </div>
    </div>
+
+
 
    <div class="container">
       <div class="row">
@@ -47,7 +69,7 @@
             <h3>
                <span>
                   <div class="row p-4 rounded-4 ms-5 me-5"
-                  [ngClass]="task?.state == 1 ? 'bg-danger-subtle' : task?.state == 2? 'bg-warning-subtle' : 'bg-success-subtle'">
+                     [ngClass]="task?.state == 1 ? 'bg-danger-subtle' : task?.state == 2? 'bg-warning-subtle' : 'bg-success-subtle'">
                      <div class=" col-md-7 text-end">
                         <span>
                            <h4 *ngIf="task?.state==1">Not Assigned</h4>

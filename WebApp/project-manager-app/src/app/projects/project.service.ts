@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Project, NewProject } from './project';
 import { Task } from './task';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 import { GlobalConstants } from '../shared/global-constants';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +14,22 @@ export class ProjectService {
 
   private individualProjectUrl = GlobalConstants.apiURL + 'projects/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
+
+  getHeadersWithToken(): HttpHeaders {
+    const token = this.auth.getToken();
+    if (token) {
+      return new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+    }
+    return new HttpHeaders({});
+  }
 
   getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.projectsUrl).pipe(
+    const headers = this.getHeadersWithToken();
+
+    return this.http.get<Project[]>(this.projectsUrl, { headers }).pipe(
       tap((data) => console.log('All: ' + JSON.stringify(data))),
       catchError((err) => {
         console.log(err);
@@ -26,13 +39,17 @@ export class ProjectService {
   }
 
   getProjectById(projectId: number): Observable<Project> {
-    return this.http.get<Project>(this.projectsUrl + '/' + projectId).pipe(
-      tap((data) => console.log('All: ' + JSON.stringify(data))),
-      catchError((err) => {
-        console.log(err);
-        return [];
-      })
-    );
+    const headers = this.getHeadersWithToken();
+
+    return this.http
+      .get<Project>(this.projectsUrl + '/' + projectId, { headers })
+      .pipe(
+        tap((data) => console.log('All: ' + JSON.stringify(data))),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
+      );
   }
 
   getTasksForProject(projectId: number): Observable<Task[]> {
@@ -49,11 +66,12 @@ export class ProjectService {
       );
   }
 
-
   getTaskById(projectId: number, taskId: number): Observable<Task> {
     return this.http
       .get<Task>(
-        this.buildUrlTaskString(this.individualProjectUrl, projectId) + '/' + taskId
+        this.buildUrlTaskString(this.individualProjectUrl, projectId) +
+          '/' +
+          taskId
       )
       .pipe(
         tap((data) => console.log('All: ' + JSON.stringify(data))),
@@ -63,8 +81,6 @@ export class ProjectService {
         })
       );
   }
-
-
 
   buildUrlTaskString(individualProjectUrl: string, projectId: number) {
     return individualProjectUrl + projectId + '/tasks';

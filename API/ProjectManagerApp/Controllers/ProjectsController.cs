@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagerApp.Models;
@@ -24,6 +25,7 @@ namespace ProjectManagerApp.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Entities.Project>>> GetProjects(
             [FromQuery] int? managerId)
         {   

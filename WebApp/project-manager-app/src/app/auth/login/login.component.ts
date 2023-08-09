@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { compileNgModule } from '@angular/compiler';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoginResponse } from './login-response';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,14 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value).subscribe({
       next: (res) => {
         console.log(res);
+        let response : LoginResponse = res as LoginResponse;
+        const token = response.token;
+
+        this.auth.processToken(token);
+
+        this.router.navigate(['projects']);
         
+
       },
       error: (err) => {
         alert(err);

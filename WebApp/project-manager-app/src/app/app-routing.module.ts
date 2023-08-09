@@ -7,15 +7,16 @@ import { TasksComponent } from './projects/tasks/tasks.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { TaskDetailsComponent } from './projects/tasks/task-details.component';
+import { AuthGuard } from './auth/auth-guard.service';
 
 
 
 const routes: Routes = [
   { path:"", component: HomeComponent },
-  { path:"projects", component: ProjectsComponent },
-  { path:"projects/:id", component: ProjectDetailsComponent},
-  { path:"projects/:id/tasks", component: TasksComponent},
-  { path:"projects/:projectid/tasks/:taskid", component: TaskDetailsComponent},
+  { path:"projects", component: ProjectsComponent, canActivate: [AuthGuard] },
+  { path:"projects/:id", component: ProjectDetailsComponent, canActivate: [AuthGuard]},
+  { path:"projects/:id/tasks", component: TasksComponent, canActivate: [AuthGuard]},
+  { path:"projects/:projectid/tasks/:taskid", component: TaskDetailsComponent, canActivate: [AuthGuard]},
 
   //insert here
 

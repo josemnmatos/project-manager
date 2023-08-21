@@ -9,6 +9,8 @@ namespace ProjectManagerApp.Services
         //_______________________________________________________________
         Task<bool> UserExistsAsync(string email);
 
+        Task<bool> UserExistsAsync(int userId);
+
         Task<Entities.User> AuthenticateUserAsync(string email, string password);
 
         Task AddUserAsync(Entities.User user);
@@ -45,13 +47,21 @@ namespace ProjectManagerApp.Services
 
         //User methods implementation
         //_____________________________________________________________________
-        Task<IEnumerable<Entities.User>> GetUsersAsync();
+
+        Task<Entities.User?> GetUserByIdAsync(int userId);
+        
 
         //Manager methods implementation
         //_____________________________________________________________________
         Task<bool> ManagerExistsAsync(int managerId);
 
         Task AddManagerAsync(Entities.Manager manager);
+
+        Task<Entities.Manager?> GetManagerByIdAsync(int userId);
+
+        Task<IEnumerable<Entities.User>> GetUsersAsync();
+
+
 
 
         //Developer methods implementation

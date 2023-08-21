@@ -20,6 +20,8 @@ export class AuthService {
 
   private emailKey = 'email';
 
+  private userIdKey = 'id';
+
   register(userObj: any) {
     return this.http.post(this.baseUrl + '/register', userObj);
   }
@@ -32,6 +34,8 @@ export class AuthService {
     this.removeToken();
     this.removeRole();
     this.removeEmail();
+    this.removeUserId();
+
 
     this.router.navigate(['/login']);
   }
@@ -72,6 +76,18 @@ export class AuthService {
     localStorage.removeItem(this.emailKey);
   }
 
+  setUserId(newUserId: string) {
+    localStorage.setItem(this.userIdKey, newUserId);
+  }
+
+  getUserId() {
+    return localStorage.getItem(this.userIdKey);
+  }
+
+  removeUserId() {
+    localStorage.removeItem(this.userIdKey);
+  }
+
   processToken(token: string) {
     const decodedToken: any = jwt_decode(token);
     const decodedRole =
@@ -83,9 +99,13 @@ export class AuthService {
         'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
       ];
 
+    const decodedUserId = decodedToken["id"]
+
     this.setToken(token);
     this.setRole(decodedRole);
     this.setEmail(decodedEmail);
+    this.setUserId(decodedUserId);
+
   }
 
   getDecodedToken() {

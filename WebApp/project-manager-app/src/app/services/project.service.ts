@@ -86,13 +86,7 @@ export class ProjectService {
     return individualProjectUrl + projectId + '/tasks';
   }
 
-  postNewProject(project: NewProject): any {
-    return this.http.post(this.projectsUrl, project).pipe(
-      tap((data) => console.log('All: ' + JSON.stringify(data))),
-      catchError((err) => {
-        console.log(err);
-        return [];
-      })
-    );
+  createProject(project: NewProject): any {
+    return this.http.post(this.projectsUrl, project);
   }
 }

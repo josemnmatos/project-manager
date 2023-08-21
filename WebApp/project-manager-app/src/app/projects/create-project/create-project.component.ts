@@ -33,7 +33,7 @@ export class CreateProjectComponent {
   }
 
   sendPostRequest(project: NewProject) {
-    this.projectService.postNewProject(project).subscribe((response: any) => {
+    this.projectService.createProject(project).subscribe((response: any) => {
       console.log(response);
     });
   }

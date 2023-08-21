@@ -1,1 +1,28 @@
-<p>manager-dashboard works!</p>
+<div class=" container-fluid" style="width:90%">
+
+   <div class="row mt-3">
+      <div class="btn-group" role="group">
+         <button [ngClass]="{'btn-primary btn-outline-primary text-white': generalTab}" type="button"
+            class="btn btn-outline-light" (click)="setGeneralTab()">General</button>
+         <button [ngClass]="{'btn-primary btn-outline-primary text-white': projectsTab}" type="button"
+            class="btn btn-outline-light" (click)="setProjectsTab()">Projects</button>
+         <button [ngClass]="{'btn-primary btn-outline-primary text-white': staffTab}" type="button"
+            class="btn btn-outline-light" (click)="setStaffTab()">Staff</button>
+      </div>
+   </div>
+
+   <div class="row mt-3">
+      <div class="col-12">
+         <div *ngIf="generalTab">
+            <app-manager-dashboard-general [manager]="manager"></app-manager-dashboard-general>
+         </div>
+         <div *ngIf="projectsTab">
+            <app-manager-dashboard-projects [manager]="manager"></app-manager-dashboard-projects>
+         </div>
+         <div *ngIf="staffTab">
+            <app-manager-dashboard-staff [manager]="manager"></app-manager-dashboard-staff>
+         </div>
+
+      </div>
+
+   </div>

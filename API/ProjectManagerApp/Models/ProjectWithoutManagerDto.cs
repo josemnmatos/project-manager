@@ -1,8 +1,6 @@
-﻿using ProjectManagerApp.Entities;
-
-namespace ProjectManagerApp.Models
+﻿namespace ProjectManagerApp.Models
 {
-    public class ProjectDto
+    public class ProjectWithoutManagerDto
     {
         public int Id { get; set; }
 
@@ -10,10 +8,6 @@ namespace ProjectManagerApp.Models
 
         public double Budget { get; set; }
 
-        public virtual ManagerInfoDto ManagerAssignedTo { get; set; } = null!;
-
         public virtual ICollection<TaskDto> Tasks { get; set; } = new List<TaskDto>();
-
-
     }
 }

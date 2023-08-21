@@ -10,6 +10,6 @@
 
         public string Email { get; set; }
 
-        public virtual ICollection<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
+        public virtual ICollection<ProjectWithoutManagerDto> Projects { get; set; } = new List<ProjectWithoutManagerDto>();
     }
 }

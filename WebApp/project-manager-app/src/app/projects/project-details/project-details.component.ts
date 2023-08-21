@@ -4,6 +4,7 @@ import { Project } from '../../shared/project';
 import { Subscription } from 'rxjs';
 import { ProjectService } from '../../services/project.service';
 import { Manager } from '../../shared/manager';
+import { Task } from 'src/app/shared/task';
 
 @Component({
   selector: 'app-project-details',
@@ -13,6 +14,7 @@ import { Manager } from '../../shared/manager';
 export class ProjectDetailsComponent {
   sub!: Subscription;
   project?: Project;
+  selectedTask! : Task;
   
 
   constructor(
@@ -33,6 +35,11 @@ export class ProjectDetailsComponent {
       this.project = project;
       
     });
+  }
+
+  selectTask(task: Task) {
+    this.selectedTask = task;
+    console.log(this.selectedTask);
   }
 
   ngOnDestroy(): void {

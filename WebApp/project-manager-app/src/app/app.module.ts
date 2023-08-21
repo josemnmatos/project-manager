@@ -16,6 +16,13 @@ import { CreateProjectComponent } from './projects/create-project/create-project
 import { TaskCreationComponent } from './projects/tasks/task-creation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
+import { ManagerDashboardGeneralComponent } from './manager-dashboard/manager-dashboard-general/manager-dashboard-general.component';
+import { ManagerDashboardProjectsComponent } from './manager-dashboard/manager-dashboard-projects/manager-dashboard-projects.component';
+import { ManagerDashboardStaffComponent } from './manager-dashboard/manager-dashboard-staff/manager-dashboard-staff.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileComponent } from './profile/profile.component';
+
 
 
 
@@ -32,14 +39,23 @@ import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard
     NavbarComponent,
     CreateProjectComponent,
     TaskCreationComponent,
-    ManagerDashboardComponent
+    ManagerDashboardComponent,
+    ManagerDashboardGeneralComponent,
+    ManagerDashboardProjectsComponent,
+    ManagerDashboardStaffComponent,
+    ProfileComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NgxChartsModule,
+    
+    
 
   ],
   providers: [],

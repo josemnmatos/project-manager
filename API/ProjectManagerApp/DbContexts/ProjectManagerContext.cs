@@ -16,6 +16,9 @@ namespace ProjectManagerApp.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            modelBuilder.Entity<User>()
+                .HasAlternateKey(u => u.Email);
+
             modelBuilder.Entity<Project>()
                 .HasMany(p => p.Tasks)
                 .WithOne(t => t.ProjectAssociatedTo)
@@ -35,11 +38,7 @@ namespace ProjectManagerApp.DbContexts
                 .HasForeignKey(p => p.ManagerId)
                 .IsRequired();
 
-            
-
-
-
-
+           
 
             modelBuilder.Entity<User>()
                 .HasData(

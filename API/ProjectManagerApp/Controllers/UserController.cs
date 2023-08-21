@@ -71,6 +71,7 @@ namespace ProjectManagerApp.Controllers
 
             var claims = new[]
             {   
+                new Claim("id", user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName),
@@ -81,7 +82,7 @@ namespace ProjectManagerApp.Controllers
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(300),
                 signingCredentials: credentials
                 );
 
@@ -89,28 +90,7 @@ namespace ProjectManagerApp.Controllers
 
         }
                 
-        
-        private Entities.User? GetCurrentUser()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-        
-            if(identity != null)
-            {
-                var userClaims = identity.Claims;
-
-                var FirstName = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.GivenName)?.Value;
-                var LastName = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Surname)?.Value;
-                var Email = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Email)?.Value;
-                var Role = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Role)?.Value;
-
-                return new Entities.User(FirstName, LastName, Email, Role);
-               
-            }
-            return null;
-
-        }
-
-
+       
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] UserForRegisterDto userObject)
@@ -132,6 +112,38 @@ namespace ProjectManagerApp.Controllers
             {
                 Message ="User registered."
             });
+        }
+
+
+
+        
+        [HttpGet("list")]
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult<IEnumerable<Entities.User>>> GetAllUsers()
+        {
+            var users = await _projectInfoRepository.GetUsersAsync();
+            return Ok(_mapper.Map<IEnumerable<UserWithoutPasswordDto>>(users));
+        }
+
+
+
+        [HttpGet("{userid}")]
+        [Authorize]
+        public async Task<ActionResult<Entities.User>> GetUser(int userId)
+        {
+            //if user is not manager or the user is not the user they are trying to get
+            if (!User.IsInRole("manager") && User.FindFirst("id").Value != userId.ToString())
+            {
+                return Unauthorized();
+            }
+            
+            if (!await _projectInfoRepository.UserExistsAsync(userId))
+            {
+                return NotFound();
+            }
+
+            var user = await _projectInfoRepository.GetUserByIdAsync(userId);
+            return Ok(_mapper.Map<UserWithoutPasswordDto>(user));
         }
 
 
@@ -159,6 +171,6 @@ namespace ProjectManagerApp.Controllers
             var devEntity = await _projectInfoRepository.GetDeveloperAsync(developerId);
             return Ok(_mapper.Map<DeveloperDto>(devEntity));
         }
-
+        
     }
 }

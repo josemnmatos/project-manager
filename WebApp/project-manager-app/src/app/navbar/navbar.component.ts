@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   loggedIn: boolean = false;
 
+  userId = this.getCurrentUserId();
+
   constructor(private auth: AuthService,
               private router: Router 
               ) {}
@@ -22,6 +24,10 @@ export class NavbarComponent {
   Logout() {
     this.auth.logout();
     this.loggedIn = false;
+  }
+
+  getCurrentUserId() {
+    return this.auth.getUserId();
   }
 
   GoToDashboard() {

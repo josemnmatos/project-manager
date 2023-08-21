@@ -19,6 +19,13 @@ namespace ProjectManagerApp.Services
             return await _context.Users.Where(u=>u.Email==email).AnyAsync();
         }
 
+        public async Task<bool> UserExistsAsync(int userId)
+        {
+            return await _context.Users.Where(u => u.Id == userId).AnyAsync();
+        }
+
+
+
         public async Task<Entities.User> AuthenticateUserAsync(string email, string password)
         {
             return await _context.Users.Where(u => u.Email==email && u.Password==password).FirstAsync();
@@ -79,7 +86,12 @@ namespace ProjectManagerApp.Services
 
         public async Task<IEnumerable<Entities.User>> GetUsersAsync()
         {
-            return await _context.Users.OrderBy(p => p.Id).ToListAsync();
+            return await _context.Users.OrderBy(p => p.FirstName).ThenBy(p=>p.LastName).ToListAsync();
+        }
+
+        public async Task<Entities.User?> GetUserByIdAsync(int userId)
+        {
+            return await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
         }
 
 
@@ -105,7 +117,7 @@ namespace ProjectManagerApp.Services
 
         public async Task<Entities.Project?> GetProjectAsync(int projectId)
         {
-            return await _context.Projects.Where(p => p.Id == projectId).Include(p => p.Tasks).Include(p => p.ManagerAssignedTo).FirstOrDefaultAsync();
+            return await _context.Projects.Where(p => p.Id == projectId).Include(p => p.Tasks).ThenInclude(t=>t.DeveloperAssignedTo).Include(p => p.ManagerAssignedTo).FirstOrDefaultAsync();
         }
 
 
@@ -183,6 +195,10 @@ namespace ProjectManagerApp.Services
             return await _context.Managers.Where(m => m.Id == managerId).AnyAsync();
         }
 
+        public async Task<Entities.Manager?> GetManagerByIdAsync(int userId)
+        {
+            return await _context.Managers.Where(m => m.UserId == userId).Include(m=>m.Projects).ThenInclude(p=>p.Tasks).ThenInclude(t=>t.DeveloperAssignedTo).FirstOrDefaultAsync();
+        }
 
 
         //Developer methods implementation
@@ -201,8 +217,6 @@ namespace ProjectManagerApp.Services
         public async Task<Entities.Developer> GetDeveloperAsync(int developerId)
         {
             var a = await _context.Developers.Where(d => d.Id == developerId).Include(d => d.Tasks).FirstOrDefaultAsync();
-
-            Console.Write(a.ToString());
 
             return a;
         }

@@ -5,15 +5,22 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <div class="navbar-nav me-auto">
           <a *ngIf="!isLogged()" [routerLink]="['/']" [routerLinkActiveOptions]="{exact:
             true}" [routerLinkActive]="['active']" class="nav-item nav-link" href="#">Home</a>
           <a *ngIf="loggedIn" [routerLink]="['/dashboard']" [routerLinkActive]="['active']" class="nav-item nav-link" (click)="GoToDashboard()">Dashboard</a>
-          <a *ngIf="loggedIn" [routerLink]="['/projects']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/projects">Projects</a>
+          <a *ngIf="loggedIn" [routerLink]="['/projects']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/projects">Project Manager</a>
+        </div>
+
+        <div class="navbar-nav ms-auto me-2">
           <a *ngIf="!isLogged()" [routerLink]="['/login']" [routerLinkActive]="['active']" class="nav-item nav-link justify-content-end" href="/login">Login</a>
           <a *ngIf="!loggedIn" [routerLink]="['/register']" [routerLinkActive]="['active']" class="nav-item nav-link justify-content-end" href="/register">Register</a>
           <a *ngIf="loggedIn" (click)="Logout()" class="nav-item nav-link justify-content-end" href="/register">Logout</a>
+          <a *ngIf="loggedIn" class="nav-item nav-link justify-content-end bg-primary text-white" href="/user/profile/{{this.getCurrentUserId()}}"><i class="bi bi-person-lines-fill fw-bold me-2"></i>My Profile</a>
+        
         </div>
+
+        
       </div>
     </nav>
 </div>

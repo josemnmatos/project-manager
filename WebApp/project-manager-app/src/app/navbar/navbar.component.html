@@ -8,8 +8,9 @@
         <div class="navbar-nav me-auto">
           <a *ngIf="!isLogged()" [routerLink]="['/']" [routerLinkActiveOptions]="{exact:
             true}" [routerLinkActive]="['active']" class="nav-item nav-link" href="#">Home</a>
-          <a *ngIf="loggedIn" [routerLink]="['/dashboard']" [routerLinkActive]="['active']" class="nav-item nav-link" (click)="GoToDashboard()">Dashboard</a>
-          <a *ngIf="loggedIn" [routerLink]="['/projects']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/projects">Project Manager</a>
+          <a *ngIf="isLogged() && isManager()" [routerLink]="['/dashboard/manager']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/dashboard/manager">Dashboard</a>
+          <a *ngIf="loggedIn && isDeveloper()" [routerLink]="['/dashboard/developer']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/dashboard/developer">Dashboard</a>
+          <a *ngIf="loggedIn && isManager()" [routerLink]="['/projects']" [routerLinkActive]="['active']" class="nav-item nav-link" href="/projects">Project Manager</a>
         </div>
 
         <div class="navbar-nav ms-auto me-2">

@@ -1,4 +1,5 @@
 import { Developer } from "./developer";
+import { Project } from "./project";
 
 export interface Task {
   id: number;
@@ -7,4 +8,6 @@ export interface Task {
   state: number;
   deadline: Date;
   developerAssignedTo: Developer;
+  projectAssociatedTo: Project;
+  developerId: number;
 }

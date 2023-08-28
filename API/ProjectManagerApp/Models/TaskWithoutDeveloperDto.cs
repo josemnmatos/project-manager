@@ -14,6 +14,8 @@ namespace ProjectManagerApp.Models
 
         public DateTime Deadline { get; set; }
 
+        public virtual ProjectWithoutTasksDto ProjectAssociatedTo { get; set; }
+
 
 
     }

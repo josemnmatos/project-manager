@@ -7,6 +7,7 @@ import { GlobalConstants } from '../shared/global-constants';
 import { AuthService } from './auth.service';
 import { Manager } from '../shared/manager';
 import { User } from '../shared/user';
+import { Developer } from '../shared/developer';
 
 @Injectable({
   providedIn: 'root',
@@ -26,18 +27,29 @@ export class ProfileService {
     return new HttpHeaders({});
   }
 
-
-  getUserProfile(userId: number): Observable<User> {
+  getDevelopers(): Observable<Developer[]> {
     const headers = this.getHeadersWithToken();
 
     return this.http
-      .get<User>(this.userUrl + '/' + userId, { headers })
+      .get<Developer[]>(this.userUrl + '/developers', { headers })
       .pipe(
-        tap(),
+        tap((data) => console.log('All: ' + JSON.stringify(data))),
         catchError((err) => {
           console.log(err);
           return [];
         })
       );
+  }
+
+  getUserProfile(userId: number): Observable<User> {
+    const headers = this.getHeadersWithToken();
+
+    return this.http.get<User>(this.userUrl + '/' + userId, { headers }).pipe(
+      tap(),
+      catchError((err) => {
+        console.log(err);
+        return [];
+      })
+    );
   }
 }

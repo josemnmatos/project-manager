@@ -6,6 +6,7 @@ import { Observable, catchError, tap } from 'rxjs';
 import { GlobalConstants } from '../shared/global-constants';
 import { AuthService } from './auth.service';
 import { Manager } from '../shared/manager';
+import { Developer } from '../shared/developer';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,20 @@ export class DashboardService {
 
     return this.http
       .get<Manager>(this.managerDashboardUrl + '/' + userId, { headers })
+      .pipe(
+        tap(),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
+      );
+  }
+
+  getDeveloperDashboard(userId: string): Observable<Developer> {
+    const headers = this.getHeadersWithToken();
+
+    return this.http
+      .get<Developer>(this.developerDashboardUrl + '/' + userId, { headers })
       .pipe(
         tap(),
         catchError((err) => {

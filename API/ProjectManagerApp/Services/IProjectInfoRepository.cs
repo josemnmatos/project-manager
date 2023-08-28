@@ -43,6 +43,7 @@ namespace ProjectManagerApp.Services
 
         void DeleteTask(Entities.Task task);
 
+        Task SetTaskStateAsync(int projectId, int taskId, Entities.CurrentState newState);
 
 
         //User methods implementation
@@ -73,6 +74,8 @@ namespace ProjectManagerApp.Services
         Task<Entities.Developer> GetDeveloperAsync(int developerId);
 
         Task AddDeveloperAsync(Entities.Developer developer);
+
+        Task<Entities.Developer?> GetDeveloperByIdAsync(int userId);
 
 
 

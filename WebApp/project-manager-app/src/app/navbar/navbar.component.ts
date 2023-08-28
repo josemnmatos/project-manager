@@ -12,6 +12,8 @@ export class NavbarComponent {
 
   userId = this.getCurrentUserId();
 
+
+
   constructor(private auth: AuthService,
               private router: Router 
               ) {}
@@ -28,6 +30,15 @@ export class NavbarComponent {
 
   getCurrentUserId() {
     return this.auth.getUserId();
+  }
+
+
+  isManager() {
+    return this.auth.isManager();
+  }
+
+  isDeveloper() {
+    return this.auth.isDeveloper();
   }
 
   GoToDashboard() {

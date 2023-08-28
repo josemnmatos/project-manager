@@ -14,15 +14,18 @@ import { ManagerDashboardGeneralComponent } from './manager-dashboard/manager-da
 import { ManagerDashboardStaffComponent } from './manager-dashboard/manager-dashboard-staff/manager-dashboard-staff.component';
 import { ManagerDashboardProjectsComponent } from './manager-dashboard/manager-dashboard-projects/manager-dashboard-projects.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DeveloperGuard } from './services/developer-guard.service';
+import { DeveloperDashboardComponent } from './developer-dashboard/developer-dashboard.component';
+
 
 
 
 const routes: Routes = [
   { path:"", component: HomeComponent },
-  { path:"projects", component: ProjectsComponent, canActivate: [AuthGuard] },
-  { path:"projects/:id", component: ProjectDetailsComponent, canActivate: [AuthGuard]},
-  { path:"projects/:id/tasks", component: TasksComponent, canActivate: [AuthGuard]},
-  { path:"projects/:projectid/tasks/:taskid", component: TaskDetailsComponent, canActivate: [AuthGuard]},
+  { path:"projects", component: ProjectsComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path:"projects/:id", component: ProjectDetailsComponent, canActivate: [AuthGuard, ManagerGuard]},
+  { path:"projects/:id/tasks", component: TasksComponent, canActivate: [AuthGuard, ManagerGuard]},
+  { path:"projects/:projectid/tasks/:taskid", component: TaskDetailsComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path:"dashboard/manager", component:ManagerDashboardComponent,children:
   [
     {
@@ -35,7 +38,10 @@ const routes: Routes = [
       path:'staff',component:ManagerDashboardStaffComponent
     },
 
-  ], canActivate: [ManagerGuard]},
+  ], canActivate: [AuthGuard,ManagerGuard]},
+
+  { path:"dashboard/developer", component:DeveloperDashboardComponent,canActivate: [AuthGuard, DeveloperGuard]},
+
   { path:"user/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
   
   

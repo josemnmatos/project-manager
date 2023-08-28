@@ -22,6 +22,10 @@ import { ManagerDashboardStaffComponent } from './manager-dashboard/manager-dash
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profile.component';
+import { DeveloperDashboardComponent } from './developer-dashboard/developer-dashboard.component';
+import { DaysAgoPipe } from './shared/days-ago-pipe';
+import { TimelineModule } from 'primeng/timeline';
+import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 
 
 
@@ -44,6 +48,9 @@ import { ProfileComponent } from './profile/profile.component';
     ManagerDashboardProjectsComponent,
     ManagerDashboardStaffComponent,
     ProfileComponent,
+    DeveloperDashboardComponent,
+    DaysAgoPipe,
+   
 
   ],
   imports: [
@@ -54,6 +61,7 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxChartsModule,
+    TimelineModule,
     
     
 

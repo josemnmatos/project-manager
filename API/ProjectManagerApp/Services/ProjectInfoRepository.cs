@@ -97,7 +97,7 @@ namespace ProjectManagerApp.Services
 
         public async Task<IEnumerable<Entities.Project>> GetProjectsAsync()
         {
-            var a = await _context.Projects.Include(p => p.Tasks).Include(p => p.ManagerAssignedTo).OrderBy(p => p.Name).ToListAsync();
+            var a = await _context.Projects.Include(p => p.Tasks.OrderBy(t => t.Deadline)).Include(p => p.ManagerAssignedTo).OrderBy(p => p.Name).ToListAsync();
    
             return a;
         }
@@ -117,7 +117,7 @@ namespace ProjectManagerApp.Services
 
         public async Task<Entities.Project?> GetProjectAsync(int projectId)
         {
-            return await _context.Projects.Where(p => p.Id == projectId).Include(p => p.Tasks).ThenInclude(t=>t.DeveloperAssignedTo).Include(p => p.ManagerAssignedTo).FirstOrDefaultAsync();
+            return await _context.Projects.Where(p => p.Id == projectId).Include(p => p.Tasks.OrderBy(t=>t.Deadline)).ThenInclude(t=>t.DeveloperAssignedTo).Include(p => p.ManagerAssignedTo).FirstOrDefaultAsync();
         }
 
 
@@ -141,7 +141,7 @@ namespace ProjectManagerApp.Services
         //_____________________________________________________________________
         public async Task<IEnumerable<Entities.Task>> GetTasksForProjectAsync(int projectId)
         {
-            return await _context.Tasks.Where(t => t.ProjectId == projectId).Include(t => t.DeveloperAssignedTo).Include(t => t.ProjectAssociatedTo).ToListAsync();
+            return await _context.Tasks.Where(t => t.ProjectId == projectId).OrderBy(t=>t.Deadline).Include(t => t.DeveloperAssignedTo).Include(t => t.ProjectAssociatedTo).ToListAsync();
         }
 
         public async Task<IEnumerable<Entities.Task>> GetTasksForProjectAsync(int projectId, int? developerId)
@@ -187,6 +187,17 @@ namespace ProjectManagerApp.Services
             _context.Tasks.Remove(task);
         }
 
+        public async Task SetTaskStateAsync(int projectId, int taskId, Entities.CurrentState newState)
+        {
+
+            var task = await GetTaskForProjectAsync(projectId, taskId);
+            if (task != null)
+            {
+                task.State = newState;
+            }
+
+        }
+
 
         //Manager methods implementation
         //_____________________________________________________________________
@@ -219,6 +230,11 @@ namespace ProjectManagerApp.Services
             var a = await _context.Developers.Where(d => d.Id == developerId).Include(d => d.Tasks).FirstOrDefaultAsync();
 
             return a;
+        }
+
+        public async Task<Entities.Developer?> GetDeveloperByIdAsync(int userId)
+        {
+            return await _context.Developers.Where(d => d.UserId == userId).Include(d => d.Tasks.OrderBy(t=>t.Deadline)).ThenInclude(t => t.ProjectAssociatedTo).ThenInclude(p => p.ManagerAssignedTo).FirstOrDefaultAsync();
         }
 
 

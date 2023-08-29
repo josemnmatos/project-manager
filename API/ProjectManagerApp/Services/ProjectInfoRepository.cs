@@ -89,6 +89,15 @@ namespace ProjectManagerApp.Services
             return await _context.Users.OrderBy(p => p.FirstName).ThenBy(p=>p.LastName).ToListAsync();
         }
 
+        public void DeleteUser(int userId)
+        {
+            var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            _context.Users.Remove(user);
+            
+        }
+
+
         public async Task<Entities.User?> GetUserByIdAsync(int userId)
         {
             return await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
@@ -255,6 +264,16 @@ namespace ProjectManagerApp.Services
         public async Task AddDeveloperAsync(Entities.Developer developer)
         {
             await _context.AddAsync(developer);
+        }
+
+        public async Task ChangePasswordAsync(int userId, string newPassword)
+        {
+            var user = await GetUserByIdAsync(userId);
+
+            if (user != null)
+            {
+                user.Password = newPassword;
+            }
         }
     }
 }

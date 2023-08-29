@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
@@ -26,9 +26,10 @@ import { DeveloperDashboardComponent } from './developer-dashboard/developer-das
 import { DaysAgoPipe } from './shared/days-ago-pipe';
 import { TimelineModule } from 'primeng/timeline';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
-
-
-
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
+import { UnauthorizedInterceptorService } from './services/unauthorized-interceptor.service';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { NotFoundInterceptorService } from './services/not-found-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -50,8 +51,8 @@ import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
     ProfileComponent,
     DeveloperDashboardComponent,
     DaysAgoPipe,
-   
-
+    UnauthorizedPageComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,11 +63,19 @@ import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
     BrowserAnimationsModule,
     NgxChartsModule,
     TimelineModule,
-    
-    
-
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NotFoundInterceptorService,
+      multi: true,
+    }
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

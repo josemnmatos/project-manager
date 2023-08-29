@@ -82,10 +82,8 @@ namespace ProjectManagerApp.Services
         //Other repository methods 
         //_______________________________________________________________
         Task<bool> SaveChangesAsync();
-
-
-
-
+        void DeleteUser(int userId);
+        Task ChangePasswordAsync(int userId, string newPassword);
 
     }
 }

@@ -16,7 +16,9 @@ import { ManagerDashboardProjectsComponent } from './manager-dashboard/manager-d
 import { ProfileComponent } from './profile/profile.component';
 import { DeveloperGuard } from './services/developer-guard.service';
 import { DeveloperDashboardComponent } from './developer-dashboard/developer-dashboard.component';
-
+import { UserExistsGuard } from './services/user-exists-guard.service';
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 
 
@@ -42,9 +44,11 @@ const routes: Routes = [
 
   { path:"dashboard/developer", component:DeveloperDashboardComponent,canActivate: [AuthGuard, DeveloperGuard]},
 
-  { path:"user/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
+  { path:"user/profile/:id", component: ProfileComponent, canActivate: [AuthGuard, UserExistsGuard] },
   
-  
+  {path : "unauthorized", component: UnauthorizedPageComponent},
+
+  {path : "notfound", component: NotFoundPageComponent},
   
   
   //insert here

@@ -147,6 +147,111 @@ namespace ProjectManagerApp.Controllers
         }
 
 
+        [HttpPut("{userid}")]
+        [Authorize]
+        public async Task<ActionResult> UpdateUser(int userId, [FromBody] UserForUpdateDto userObject)
+        {
+            if (userObject == null)
+            {
+                return BadRequest();
+            }
+
+            if (!await _projectInfoRepository.UserExistsAsync(userId))
+            {
+                return NotFound();
+            }
+
+            var user = await _projectInfoRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            //if user is not manager or the user is not the user they are trying to update
+            if (!User.IsInRole("manager") && User.FindFirst("id").Value != userId.ToString())
+            {
+                return Unauthorized();
+            }
+
+            _mapper.Map(userObject, user);
+
+            await _projectInfoRepository.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{userid}/password")]
+        [Authorize]
+        public async Task<ActionResult> UpdatePassword(int userId, [FromBody] PasswordForChangeDto passwordObject)
+        {
+            if (passwordObject == null)
+            {
+                return BadRequest();
+            }
+
+            if (!await _projectInfoRepository.UserExistsAsync(userId))
+            {
+                return NotFound();
+            }
+
+            var user = await _projectInfoRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            //if user is not manager or the user is not the user they are trying to update
+            if (!User.IsInRole("manager") && User.FindFirst("id").Value != userId.ToString())
+            {
+                return Unauthorized();
+            }
+
+            //check if old password is correct
+            if (await _projectInfoRepository.AuthenticateUserAsync(user.Email, passwordObject.OldPassword) == null)
+            {
+                return BadRequest(new {Message = "Old password is incorrect."});
+            }
+
+            //change password
+            await _projectInfoRepository.ChangePasswordAsync(user.Id, passwordObject.NewPassword);
+
+            await _projectInfoRepository.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{userid}")]
+        [Authorize]
+        public async Task<ActionResult> DeleteUser(int userId)
+        {
+            if (!await _projectInfoRepository.UserExistsAsync(userId))
+            {
+                return NotFound();
+            }
+
+            var user = await _projectInfoRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            //if user is not manager or the user is not the user they are trying to delete
+            if (!User.IsInRole("manager") && User.FindFirst("id").Value != userId.ToString())
+            {
+                return Unauthorized();
+            }
+
+           _projectInfoRepository.DeleteUser(user.Id);
+
+            await _projectInfoRepository.SaveChangesAsync();
+
+            return NoContent();
+        }   
+
 
         //Developer Endpoints
         //_____________________________________________________________________________________

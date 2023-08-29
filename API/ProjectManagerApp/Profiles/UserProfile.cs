@@ -19,6 +19,7 @@ namespace ProjectManagerApp.Profiles
             CreateMap<Entities.User, Entities.Developer>().ForMember(source => source.Id, opt => opt.Ignore());
             CreateMap<Entities.User, Models.ManagerInfoDto>();
             CreateMap<Entities.User, Models.DeveloperInfoDto>();
+            CreateMap<Models.UserForUpdateDto, Entities.User>();
 
         }
 

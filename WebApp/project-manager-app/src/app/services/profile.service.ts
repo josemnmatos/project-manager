@@ -52,4 +52,50 @@ export class ProfileService {
       })
     );
   }
+
+  updateUserProfile(userId: number, user: any): Observable<User> {
+    const headers = this.getHeadersWithToken();
+
+    return this.http
+      .put<User>(this.userUrl + '/' + userId, user, { headers })
+      .pipe(
+        tap(),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
+      );
+  }
+
+  deleteUser(userId: number): Observable<User> {
+    const headers = this.getHeadersWithToken();
+
+    return this.http
+      .delete<User>(this.userUrl + '/' + userId, { headers })
+      .pipe(
+        tap(),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
+      );
+  }
+
+  updatePassword(userId: number, password: any): Observable<User> {
+    const headers = this.getHeadersWithToken();
+
+    return this.http
+      .put<User>(this.userUrl + '/' + userId + '/password', password, {
+        headers,
+      })
+      .pipe(
+        tap( 
+          (data) => console.log('All: ' + JSON.stringify(data))
+        ),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
+      );
+  }
 }

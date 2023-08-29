@@ -23,6 +23,30 @@
             </div>
          </div>
 
+
+         <div class=" row gx-4">
+            <div class="col-md-6 mt-4">
+               <label for="state">State</label>
+               <select ngModel (ngModelChange)="myStateSelectHandler($event)" name="" id="state" class="form-select mt-1">
+                  <option value="all">All</option>
+                  <option value="notStarted">Not started</option>
+                  <option value="pending">Pending</option>
+                  <option value="completed">Complete</option>
+               </select>
+            </div>
+            <div class="col-md-6 mt-4">
+               <label for="sort">Sort by</label>
+               <select ngModel (ngModelChange)="mySelectHandler($event)" name="sort" id="sort" class="form-select mt-1">
+                  <option value="deadline" (click)="sortByDeadline()">Deadline</option>
+                  <option value="name" (click)="sortByName()">Name</option>
+                  <option value="projectName" (click)="sortByProjectName()">Project</option>
+               </select>
+            </div>
+
+
+
+         </div>
+
          <div class=" ">
             <div class="container-fluid">
                <div class="row mt-3 mb- 3">
@@ -57,7 +81,7 @@
                         </div>
                      </div>
 
-                     <div *ngFor="let task of project.tasks">
+                     <div *ngFor="let task of tasksToShow">
                         <div class=" row gx-5 mt-4 ms-3 me-1 pt-4 pb-3 rounded-4 shadow-sm"
                            [ngClass]="task.state==1 ? 'bg-danger-subtle' : task.state==2 ? 'bg-warning-subtle' : 'bg-success-subtle' ">
                            <div class="col-md-1">

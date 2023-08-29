@@ -5,7 +5,7 @@
 <div class="container-fluid" style="width:90%;">
   <hr>
   <div class="row row-cols-1 row-cols-md-2 mt-4">
-    <div class="col mb-4" *ngFor="let project of activeProjects">
+    <div class="col mb-4" *ngFor="let project of activeProjects ">
       <div class="card m-2 shadow rounded-4">
         <a href="/projects/{{project.id}}" class=" stretched-link"></a>
         <div class="card-header bg-primary rounded-top-4">
@@ -35,7 +35,7 @@
                 Deadline
               </div>
             </div>
-            <div class="row mt-2" *ngFor="let task of project.tasks">
+            <div class="row mt-2" *ngFor="let task of project.tasks | slice:0:5">
               <div class="col-md-4">
                 {{task.name}}
               </div>

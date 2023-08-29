@@ -21,6 +21,8 @@ export class ProjectDetailsComponent {
   selectedTask?: Task;
   selectedTaskNoChanges?: Task;
   developerList?: Developer[];
+  tasksToShow?: any[];
+  tasks?: any[];
 
   taskForm!: FormGroup;
   taskCreationForm!: FormGroup;
@@ -66,6 +68,8 @@ export class ProjectDetailsComponent {
       this.project = project;
       if (project.tasks.length > 0) {
         this.selectTask(project.tasks[0]);
+        this.tasks = project.tasks;
+        this.tasksToShow = project.tasks;
       }
     });
 
@@ -187,4 +191,90 @@ export class ProjectDetailsComponent {
   setSelectedTaskName(name: string) {
     this.selectedTask!.name = name;
   }
+
+  //filter helper methods
+  myStateSelectHandler(event: any) {
+    console.log(event);
+    let tasks = this.tasks!;
+    switch (event) {
+      case 'all':
+        this.showAllTasks();
+        break;
+      case 'notStarted':
+        this.showNotStartedTasks();
+        break;
+      case 'pending':
+        this.showPendingTasks();
+        break;
+      case 'completed':
+        this.showCompletedTasks();
+        break;
+    }
+  }
+
+  showAllTasks() {
+    this.tasksToShow = this.tasks;
+  }
+
+  showNotStartedTasks() {
+    this.tasksToShow = this.tasks?.filter((task) => {
+      return task.state == 1;
+    });
+  }
+
+  showPendingTasks() {
+    this.tasksToShow = this.tasks?.filter((task) => {
+      return task.state == 2;
+    });
+  }
+
+  showCompletedTasks() {
+    this.tasksToShow = this.tasks?.filter((task) => {
+      return task.state == 3;
+    });
+  }
+
+  sortByDeadline() {
+    let tasks = this.tasksToShow!;
+
+    return tasks.sort((a, b) => {
+      return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+    });
+  }
+
+  sortByName() {
+    let tasks = this.tasksToShow!;
+    console.log(tasks);
+    return tasks.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+  sortByProjectName() {
+    let tasks = this.tasksToShow!;
+    return tasks.sort((a, b) => {
+      return a.projectAssociatedTo.name.localeCompare(
+        b.projectAssociatedTo.name
+      );
+    });
+  }
+
+  mySelectHandler(event: any) {
+    console.log(event);
+    let tasks = this.tasks!;
+    switch (event) {
+      case 'deadline':
+        this.tasksToShow = this.sortByDeadline();
+        break;
+      case 'name':
+        this.tasksToShow = this.sortByName();
+        break;
+      case 'projectName':
+        this.tasksToShow = this.sortByProjectName();
+        break;
+    }
+  }
+
+
+
 }

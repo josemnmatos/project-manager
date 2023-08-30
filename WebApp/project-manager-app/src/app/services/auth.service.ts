@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalConstants } from '../shared/global-constants';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { EncryptionService } from './encryption.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ export class AuthService {
   baseUrl = GlobalConstants.apiURL + 'users';
 
   constructor(private http: HttpClient, 
-              private router: Router          
+              private router: Router,
+              private encryption: EncryptionService          
     ) {}
 
   private tokenKey = 'token';
@@ -23,10 +25,20 @@ export class AuthService {
   private userIdKey = 'id';
 
   register(userObj: any) {
+
+    //userObj.password = this.encryption.encrypt(userObj.password);
+
+    
+
     return this.http.post(this.baseUrl + '/register', userObj);
   }
 
   login(loginObj: any) {
+
+   // loginObj.password = this.encryption.encrypt(loginObj.password);
+
+    console.log(loginObj);
+
     return this.http.post(this.baseUrl + '/authenticate', loginObj);
   }
 
@@ -38,6 +50,11 @@ export class AuthService {
 
 
     this.router.navigate(['/login']);
+  }
+
+  tokenExpired(token: string) {
+    const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    return (Math.floor((new Date).getTime() / 1000)) >= expiry;
   }
 
   setToken(token: string) {

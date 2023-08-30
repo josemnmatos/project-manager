@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ProjectManagerContext>();
 builder.Services.AddScoped<IProjectInfoRepository, ProjectInfoRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<EncryptionService>();
 
 // authentication
 

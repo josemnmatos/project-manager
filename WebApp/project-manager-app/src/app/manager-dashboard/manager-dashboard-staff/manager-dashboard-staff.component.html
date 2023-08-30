@@ -3,8 +3,11 @@
       <div class="col-md-9">
          <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <span *ngIf="selectedRole" class="me-3">{{selectedRole}}</span>
-            <span *ngIf="!selectedRole" class="me-3">All roles</span>
+            <span *ngIf="selectedRole=='Manager'" class="me-3">{{'Manager' | translate}}</span>
+            <span *ngIf="selectedRole=='Developer'" class="me-3">{{'Developer' | translate}}</span>
+            <span *ngIf="selectedRole=='All Roles'" class="me-3">{{'AllRoles' | translate}}</span>
+            <span *ngIf="!selectedRole" class="me-3">{{'AllRoles' | translate}}</span>
+         
          </button>
          <ul class="dropdown-menu w-75">
             <li *ngFor="let name of rolesName"><a (click)="setSelectedRole(name)" class="dropdown-item" href="#"
@@ -14,7 +17,7 @@
       <div class="col-md-3">
          <button class="btn btn-outline-primary  w-100" type="button" data-toggle="modal" data-target="#myModal"
             aria-expanded="false">
-            <i class="bi bi-plus-circle-fill"></i> New User
+            <i class="bi bi-plus-circle-fill"></i> {{'NewUser' | translate}}
          </button>
 
       </div>
@@ -43,12 +46,13 @@
          <div class="col-md-3 text-center">
             <h5 class="text-decoration-none">{{user.firstName | titlecase}} {{user.lastName | titlecase}}</h5>
          </div>
-         <div class="col-md-2 text-end">
-            {{user.role | titlecase}}
+         <div class="col-md-2 text-start">
+            <span *ngIf="user.role=='manager'">{{'Manager'|translate}}</span>
+            <span *ngIf="user.role=='developer'">{{'Developer'|translate}}</span>
          </div>
          <div class="col-md-4 text-end">
             <a href="user/profile/{{user.id}}">
-               <button class="btn btn-primary "><i class="bi bi-person-fill"></i> Profile</button>
+               <button class="btn btn-primary "><i class="bi bi-person-fill"></i> {{'Profile'|translate}}</button>
             </a>
          </div>
       </div>
@@ -63,24 +67,24 @@
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="btn btn-outline-danger close rounded-2" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title me-4">New User</h4>
+            <h4 class="modal-title me-4">{{'NewUser' | translate}}</h4>
          </div>
          <div class="modal-body">
             <div class="btn-group w-100 mt-4" role="group">
                <button class="btn" [ngClass]="accountType=='manager' ? 'btn-primary' : 'btn-outline-primary'"
-                  (click)="changeAccountType()">Manager</button>
+                  (click)="changeAccountType()">{{'Manager' | translate}}</button>
                <button class="btn" [ngClass]="accountType=='developer' ? 'btn-primary' : 'btn-outline-primary'"
-                  (click)="changeAccountType()">Developer</button>
+                  (click)="changeAccountType()"> {{'Developer' | translate}}</button>
 
             </div>
 
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class=" form-control-lg">
                <div class="row p-2">
-                  <label for="">First Name</label>
+                  <label for="">{{'FirstName' | translate}}</label>
                   <input formControlName="firstName" type="text" class=" rounded-2 form-text">
                </div>
                <div class="row p-2">
-                  <label for="">Last Name</label>
+                  <label for="">{{'LastName' | translate}}</label>
                   <input formControlName="lastName" type="text" class=" rounded-2 form-text">
                </div>
                <div class="row p-2">
@@ -88,15 +92,16 @@
                   <input formControlName="email" type="email" class="rounded-2 form-text">
                </div>
                <div class="row p-2">
-                  <label for="">Password</label>
+                  <label for="">{{'Password' | translate}}</label>
                   <input formControlName="password" type="password" class="rounded-2 form-text">
                </div>
                <div class="row p-2">
-                  <label for="">Confirm password</label>
+                  <label for="">{{'ConfirmPassword' | translate}}</label>
+                  
                   <input formControlName="confirmedPassword" type="password" class="rounded-2 form-text">
                </div>
                <div class="row p-2 mt-4">
-                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button type="submit" class="btn btn-success">{{'Submit' | translate}}</button>
                </div>
             </form>
          </div>

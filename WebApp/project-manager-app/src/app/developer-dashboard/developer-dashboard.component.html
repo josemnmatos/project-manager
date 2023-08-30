@@ -1,7 +1,7 @@
 <div class="container-fluid" style="width:90%;">
    <div class="row">
       <div class="col-md-5">
-         <h2 class="mt-4">Upcoming tasks</h2>
+         <h2 class="mt-4">{{'UpcomingTasks' | translate}}</h2>
          <div *ngFor="let task of activeTasks | slice:0:3; ">
             <div class="card mt-4 w-75" style="width: 18rem;">
                <div class="card-body"
@@ -10,7 +10,7 @@
                   <div class=" d-flex card-title">
                      <h5 class="card-title">{{task.name}} </h5>
                      <button class="ms-auto btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#taskModal"
-                        (click)="selectTask(task)">View</button>
+                        (click)="selectTask(task)">{{'Open' | translate}}</button>
 
                   </div>
 
@@ -37,24 +37,24 @@
 
 
       <div class=" col-md-7">
-         <h2 class="mt-4">My tasks</h2>
+         <h2 class="mt-4">{{'MyTasks' | translate}}</h2>
 
          <div class=" row gx-4">
             <div class="col-md-6 mt-4">
-               <label for="state">State</label>
+               <label for="state">{{'State' | translate}}</label>
                <select ngModel (ngModelChange)="myStateSelectHandler($event)" name="" id="state" class="form-select mt-1">
-                  <option value="all">All</option>
-                  <option value="notStarted">Not started</option>
-                  <option value="pending">Pending</option>
-                  <option value="completed">Complete</option>
+                  <option value="all">{{'All' | translate}}</option>
+                  <option value="notStarted">{{'NotStarted' | translate}}</option>
+                  <option value="pending">{{'Pending' | translate}}</option>
+                  <option value="completed">{{'Complete' | translate}}</option>
                </select>
             </div>
             <div class="col-md-6 mt-4">
-               <label for="sort">Sort by</label>
+               <label for="sort">{{'SortBy' | translate}}</label>
                <select ngModel (ngModelChange)="mySelectHandler($event)" name="sort" id="sort" class="form-select mt-1">
-                  <option value="deadline" (click)="sortByDeadline()">Deadline</option>
-                  <option value="name" (click)="sortByName()">Name</option>
-                  <option value="projectName" (click)="sortByProjectName()">Project</option>
+                  <option value="deadline" (click)="sortByDeadline()">{{'Deadline' | translate}}</option>
+                  <option value="name" (click)="sortByName()">{{'Name' | translate}}</option>
+                  <option value="projectName" (click)="sortByProjectName()">{{'Project' | translate}}</option>
                </select>
             </div>
 
@@ -74,13 +74,13 @@
                ID
             </div>
             <div class="col-md-3 fw-bold">
-               Name
+               {{'Name' | translate}}
             </div>
             <div class="col-md-3 fw-bold">
-               Project
+               {{'Project' | translate}}
             </div>
             <div class="col-md-3 fw-bold">
-               Deadline
+               {{'Deadline' | translate}}
             </div>
             <div class="col-md-2 fw-bold">
 
@@ -105,7 +105,7 @@
 
                <div class="col-md-2">
                   <button type="button" (click)="selectTask(task)" data-toggle="modal"
-                     data-target="#taskModal" class="btn btn-outline-dark w-100"> View</button>
+                     data-target="#taskModal" class="btn btn-outline-dark w-100">{{'Open' | translate}} </button>
                </div>
             </div>
          </div>
@@ -136,15 +136,15 @@
             <h4 class=" text-muted">{{selectedTask?.description}}</h4>
             <div class=" row mt-3">
                <div class="col-md-6">
-                  Project :<h4 class="">{{selectedTask?.projectAssociatedTo?.name}}</h4>
+                  {{'Project' | translate}} :<h4 class="">{{selectedTask?.projectAssociatedTo?.name}}</h4>
                   <hr class=" mt-2">
 
-                  Deadline :<h4 class=""> Due in {{selectedTask?.deadline | daysAgo}}</h4>
+                  {{'Deadline' | translate}} :<h4 class=""> {{'DueIn' | translate}} {{selectedTask?.deadline | daysAgo}}</h4>
                   <h5 class=" fst-italic text-muted">{{selectedTask?.deadline | date}}</h5>
 
-                  Current State :<h4 *ngIf="selectedTask?.state==3" class=" text-success mt-3">Completed</h4>
-                  <h4 *ngIf="selectedTask?.state==2" class=" text-warning">Pending</h4>
-                  <h4 *ngIf="selectedTask?.state==1" class=" text-danger">Not Started</h4>
+                  {{'State' | translate}} :<h4 *ngIf="selectedTask?.state==3" class=" text-success mt-3">{{'Complete' | translate}}</h4>
+                  <h4 *ngIf="selectedTask?.state==2" class=" text-warning">{{'Pending' | translate}}</h4>
+                  <h4 *ngIf="selectedTask?.state==1" class=" text-danger">{{'NotStarted' | translate}}</h4>
 
                </div>
                <div class="col-md-2">
@@ -152,11 +152,11 @@
                <div class="col-md-4">
                   <div class="row mt-4 w-75">
                      <button (click)="setTaskState(selectedTask,2)" *ngIf="selectedTask?.state != 2"
-                        class="btn btn-warning">Mark as pending</button>
+                        class="btn btn-warning">{{'MarkAsPending' | translate}}</button>
                   </div>
                   <div class="row mt-4 w-75">
                      <button (click)="setTaskState(selectedTask,3)" *ngIf="selectedTask?.state != 3"
-                        class="btn btn-success">Mark as complete</button>
+                        class="btn btn-success">{{'MarkAsComplete' | translate}}</button>
 
                   </div>
 

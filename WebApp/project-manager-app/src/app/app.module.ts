@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,12 +24,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profile.component';
 import { DeveloperDashboardComponent } from './developer-dashboard/developer-dashboard.component';
 import { DaysAgoPipe } from './shared/days-ago-pipe';
-import { TimelineModule } from 'primeng/timeline';
+
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 import { UnauthorizedInterceptorService } from './services/unauthorized-interceptor.service';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { NotFoundInterceptorService } from './services/not-found-interceptor.service';
+import * as CryptoJS from 'crypto-js';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// For dynamic progressbar demo
+
+
 
 @NgModule({
   declarations: [
@@ -62,7 +69,18 @@ import { NotFoundInterceptorService } from './services/not-found-interceptor.ser
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxChartsModule,
-    TimelineModule,
+    TranslateModule.forRoot({
+      //defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
+
+    
+
+
   ],
   providers: [
     {
@@ -79,3 +97,7 @@ import { NotFoundInterceptorService } from './services/not-found-interceptor.ser
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

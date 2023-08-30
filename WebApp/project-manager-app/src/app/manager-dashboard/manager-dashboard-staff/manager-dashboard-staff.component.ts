@@ -30,6 +30,7 @@ export class ManagerDashboardStaffComponent implements OnInit {
               private auth: AuthService) {}
 
   rolesName = ['All roles', 'Manager', 'Developer'];
+  
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({

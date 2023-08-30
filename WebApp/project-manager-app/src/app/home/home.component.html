@@ -18,10 +18,10 @@
                <main role="main" class="inner cover">
                   <h1 class="cover-heading display-1">PMP</h1>
                   <h1 class="cover-heading display-1"><span class=" text-primary "> &lt;/&gt; </span></h1>
-                  <h4 class=" p-2 text-muted fst-italic">Your project management platform.</h4>
+                  <h4 class=" p-2 text-muted fst-italic">{{'HomeMessage' | translate}}</h4>
                   <br>
-                  <a *ngIf="!isLogged()" href="/register" class="btn btn-lg btn-secondary">Get Started</a>
-                  <a *ngIf="isLogged()" href="/projects" class="btn btn-lg btn-secondary">My Dashboard</a>
+                  <a *ngIf="!isLogged()" href="/register" class="btn btn-lg btn-secondary">{{'GetStarted' | translate}}</a>
+                  <a *ngIf="isLogged()" href="/projects" class="btn btn-lg btn-secondary">{{'MyDashboard' | translate}}</a>
          
                </main>
             </div>

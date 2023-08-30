@@ -17,8 +17,8 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy, OnChanges {
   manager!: Manager;
   tab: string = 'projects';
 
-  generalTab: boolean = false;
-  projectsTab: boolean = true;
+  generalTab: boolean = true;
+  projectsTab: boolean = false;
   staffTab: boolean = false;
 
 

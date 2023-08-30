@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -15,8 +16,18 @@ export class NavbarComponent {
 
 
   constructor(private auth: AuthService,
-              private router: Router 
-              ) {}
+              private router: Router,
+              public translate : TranslateService
+              ) {
+                translate.addLangs(['en', 'pt']);
+                translate.setDefaultLang('en');
+
+              }
+
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
 
   isLogged() {
     this.loggedIn = this.auth.isAuthenticated();

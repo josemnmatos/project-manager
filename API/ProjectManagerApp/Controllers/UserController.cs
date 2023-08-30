@@ -21,12 +21,14 @@ namespace ProjectManagerApp.Controllers
         private readonly IProjectInfoRepository _projectInfoRepository;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly EncryptionService _encryptionService;
 
-        public UserController(IProjectInfoRepository projectInfoRepository, IMapper mapper, IConfiguration configuration)
+        public UserController(IProjectInfoRepository projectInfoRepository, IMapper mapper, IConfiguration configuration, EncryptionService encryptionService)
         {
             _projectInfoRepository = projectInfoRepository ?? throw new ArgumentNullException(nameof(projectInfoRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _encryptionService = new EncryptionService(_configuration);
         }
 
 
@@ -45,6 +47,8 @@ namespace ProjectManagerApp.Controllers
             {
                 return NotFound(new {Message = "User not found."});
             }
+
+
 
             var user = await _projectInfoRepository.AuthenticateUserAsync(userObject.Email, userObject.Password);
 

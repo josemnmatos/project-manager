@@ -26,7 +26,7 @@ export class ManagerDashboardProjectsComponent implements OnInit {
   ) {}
 
   colors = [
-    { name: 'Not Assigned', value: '#DA292E' },
+    { name: 'Not Started', value: '#DA292E' },
     { name: 'Pending', value: '#F4BD61' },
     { name: 'Completed', value: '#2FB380' },
   ];

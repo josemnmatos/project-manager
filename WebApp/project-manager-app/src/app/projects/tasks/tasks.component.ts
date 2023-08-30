@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
-import { Project } from '../project';
-import { Task } from '../task';
-import { ProjectService } from '../project.service';
+import { Project } from '../../shared/project';
+import { Task } from '../../shared/task';
+import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

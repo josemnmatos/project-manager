@@ -1,25 +1,28 @@
 
-<div class="container w-50 p-5 bg-light rounded-5 mt-5">
-   <h1 class="text-center">Login</h1>
+<div class="container-fluid w-50 p-5 bg-light rounded-5 mt-5">
+   <h1 class="text-center">{{ 'Login' | translate}}</h1>
 
-   <form action="" class=" form-control-lg ">
+   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class=" form-control-lg ">
       <div class="row p-3">
-         <label for="">Username</label>
-         <input type="text" class=" rounded-2 form-text">
+         <label for="">{{'Username' | translate}}</label>
+         <input formControlName="email" type="text" class=" rounded-2 form-text">
       </div>
       <div class="row p-3">
-         <label for="">Password</label>
-         <input type="password" class="rounded-2 form-text">
+         <label for="">{{'Password' | translate}}</label>
+         
+         <input formControlName="password" type="password" class="rounded-2 form-text">
+      </div>
+
+      <div class="row p-3">
+         <button  type="submit" class="btn btn-primary">{{ 'Login' | translate}}</button>
       </div>
    </form>
 
-   <div class="row p-3">
-      <button class="btn btn-primary">Login</button>
-   </div>
+ 
 
    <div class="row text-center mt-4">
       <a href="/register">
-         <p>Still don't have an account?</p>
+         <p>{{ 'NoAccountMessage' | translate}}</p>
          <br>
       </a>
    </div>

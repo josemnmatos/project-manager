@@ -4,6 +4,18 @@ namespace ProjectManagerApp.Services
     public interface IProjectInfoRepository
     {
 
+
+        //Authentication repository methods
+        //_______________________________________________________________
+        Task<bool> UserExistsAsync(string email);
+
+        Task<bool> UserExistsAsync(int userId);
+
+        Task<Entities.User> AuthenticateUserAsync(string email, string password);
+
+        Task AddUserAsync(Entities.User user);
+
+
         //Project repository methods 
         //_______________________________________________________________
         Task<IEnumerable<Entities.Project>> GetProjectsAsync();
@@ -31,23 +43,47 @@ namespace ProjectManagerApp.Services
 
         void DeleteTask(Entities.Task task);
 
-        Task<IEnumerable<Entities.Task>> GetTasksByDeveloperAsync(int developerId);
+        Task SetTaskStateAsync(int projectId, int taskId, Entities.CurrentState newState);
+
+
+        //User methods implementation
+        //_____________________________________________________________________
+
+        Task<Entities.User?> GetUserByIdAsync(int userId);
+        
 
         //Manager methods implementation
         //_____________________________________________________________________
         Task<bool> ManagerExistsAsync(int managerId);
+
+        Task AddManagerAsync(Entities.Manager manager);
+
+        Task<Entities.Manager?> GetManagerByIdAsync(int userId);
+
+        Task<IEnumerable<Entities.User>> GetUsersAsync();
+
+
 
 
         //Developer methods implementation
         //_____________________________________________________________________
         Task<bool> DeveloperExistsAsync(int developerId);
 
+        Task<IEnumerable<Entities.Developer>> GetDevelopersAsync();
+
+        Task<Entities.Developer> GetDeveloperAsync(int developerId);
+
+        Task AddDeveloperAsync(Entities.Developer developer);
+
+        Task<Entities.Developer?> GetDeveloperByIdAsync(int userId);
+
+
 
         //Other repository methods 
         //_______________________________________________________________
         Task<bool> SaveChangesAsync();
-
-
+        void DeleteUser(int userId);
+        Task ChangePasswordAsync(int userId, string newPassword);
 
     }
 }

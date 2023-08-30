@@ -1,17 +1,52 @@
 <div class="">
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand ms-4 me-4 display-6 fw-bold" href="#"><span class=" text-primary fw-bold"> &lt;/&gt; </span>PMP</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="/projects">Projects</a>
-          <a class="nav-item nav-link justify-content-end" href="/login">Login</a>
-          <a class="nav-item nav-link justify-content-end" href="/register">Register</a>
-   
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand ms-4 me-4 display-6 fw-bold" href="#"><span class=" text-primary fw-bolder"> <i
+          class="text-primary bi bi-code-slash"></i> </span> PMP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav me-auto">
+        <a *ngIf="!isLogged()" [routerLink]="['/']" [routerLinkActiveOptions]="{exact:
+            true}" [routerLinkActive]="['active']" class="nav-item nav-link" href="#">Home</a>
+        <a *ngIf="isLogged() && isManager()" [routerLink]="['/dashboard/manager']" [routerLinkActive]="['active']"
+          class="nav-item nav-link" href="/dashboard/manager">{{ 'Dashboard' | translate}}</a>
+        <a *ngIf="loggedIn && isDeveloper()" [routerLink]="['/dashboard/developer']" [routerLinkActive]="['active']"
+          class="nav-item nav-link" href="/dashboard/developer">{{ 'Dashboard' | translate}}</a>
+        <a *ngIf="loggedIn && isManager()" [routerLink]="['/projects']" [routerLinkActive]="['active']"
+          class="nav-item nav-link" href="/projects">{{ 'ProjectManager' | translate}}</a>
       </div>
-    </nav>
+
+
+      <div class="navbar-nav ms-auto me-2">
+        <a *ngIf="!isLogged()" [routerLink]="['/login']" [routerLinkActive]="['active']"
+          class="nav-item nav-link justify-content-end" href="/login"> {{ 'Login' | translate}}</a>
+        <a *ngIf="!loggedIn" [routerLink]="['/register']" [routerLinkActive]="['active']"
+          class="nav-item nav-link justify-content-end" href="/register"> {{ 'Register' | translate}}</a>
+        <a *ngIf="loggedIn" (click)="Logout()" class="nav-item nav-link justify-content-end" href="/register"> <i
+            class="bi bi-box-arrow-right me-2"></i> {{ 'Logout' | translate}}</a>
+        <a *ngIf="loggedIn" class="nav-item nav-link justify-content-end bg-primary text-white"
+          href="/user/profile/{{this.getCurrentUserId()}}"><i class="bi bi-person-lines-fill fw-bold me-2"></i>
+          {{ 'MyProfile' | translate}}</a>
+
+      </div>
+      
+      <span class="form-inline me-4">
+        <select name="" class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+            {{lang.toUpperCase()}}
+            
+
+          </option>
+
+
+        </select>
+
+      </span>
+
+
+    </div>
+  </nav>
 </div>

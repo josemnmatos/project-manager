@@ -10,6 +10,7 @@ namespace ProjectManagerApp.Profiles
             CreateMap<Models.TaskForCreationDto, Entities.Task>();
             CreateMap<Models.TaskForUpdateDto, Entities.Task>();
             CreateMap<Entities.Task,Models.TaskForUpdateDto>();
+            CreateMap<Entities.Task, Models.TaskWithoutDeveloperDto>();
         }
 
 

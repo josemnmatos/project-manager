@@ -1,10 +1,11 @@
+import { Manager } from './manager';
 import { Task } from './task';
 
 export interface Project {
   id: number;
   name: string;
   budget: number;
-  managerId: number;
+  managerAssignedTo: Manager;
   tasks: Task[];
 }
 

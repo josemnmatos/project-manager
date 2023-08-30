@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagerApp.Models;
@@ -24,6 +25,7 @@ namespace ProjectManagerApp.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Entities.Project>>> GetProjects(
             [FromQuery] int? managerId)
         {   
@@ -36,7 +38,8 @@ namespace ProjectManagerApp.Controllers
             }
 
             var projectEntities = await _projectInfoRepository.GetProjectsAsync(managerId);
-            return Ok(_mapper.Map<IEnumerable<ProjectWithoutTasksDto>>(projectEntities));
+
+            return Ok(_mapper.Map<IEnumerable<ProjectDto>>(projectEntities));
         }
 
 
@@ -50,7 +53,7 @@ namespace ProjectManagerApp.Controllers
             }
 
             var projectEntity = await _projectInfoRepository.GetProjectAsync(projectId);
-            return Ok(_mapper.Map<ProjectWithoutTasksDto>(projectEntity));
+            return Ok(_mapper.Map<ProjectDto>(projectEntity));
         }
 
 

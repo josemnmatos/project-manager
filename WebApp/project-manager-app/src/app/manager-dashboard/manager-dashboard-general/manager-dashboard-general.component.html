@@ -1,0 +1,60 @@
+
+<div class="row gx-2">
+   <div class="">
+      <div class="d-flex">
+         <h4>{{'YourProjects' | translate}}</h4>
+         <a href="/projects" class="ms-auto"><button class="ms-auto btn btn-outline-dark">{{'SeeAll' | translate}}</button></a>
+         
+      </div>
+
+      <div *ngFor="let project of manager.projects ">
+         <hr class="mt-3 mb-3">
+         <div class="card mt-3 w-100" style="width: 20rem;">
+            <div class="card-body">
+
+               <div class=" d-flex card-title">
+                  <h5 class="card-title">{{project.name}}  |  <span class="text-muted fst-italic">{{project.tasks.length}} {{'Tasks'|translate}}</span> </h5>
+                  <a href="/projects/{{project.id}}" class="ms-auto"><button class="ms-auto btn btn-outline-success" 
+                     >{{'Open'|translate}}</button></a>
+                  
+               </div>
+
+               <p>{{'Progress' | translate}}</p>
+      
+               <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-success " role="progressbar" [style.width.%]="getPercentage(project)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{getPercentage(project)}}%</div>
+               </div>
+
+               <hr>
+               <p class="card-text"></p>
+               <div class="row gx-2">
+                  <div class="col-md-4">
+                     <div class="text-center pt-3 pb-3 bg-light border border-4 border-success rounded-4 shadow-sm">
+                        {{countTasksForProjects(project,3)}}
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="text-center pt-3 pb-3 border border-4 border-warning bg-light rounded-4 shadow-sm">
+                        {{countTasksForProjects(project,2)}}
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="text-center pt-3 pb-3 border border-4 border-danger bg-light rounded-4 shadow-sm">
+                        {{countTasksForProjects(project,1)}}
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+
+      </div>
+
+
+
+
+   </div>
+
+
+
+</div>

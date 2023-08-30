@@ -1,14 +1,14 @@
 <div class="row text-center m-3">
-  <h1>Projects</h1>
+  <h1>{{ 'MyProjects' | translate}}</h1>
 </div>
 
-<div class="container">
+<div class="container-fluid" style="width:90%;">
   <hr>
   <div class="row row-cols-1 row-cols-md-2 mt-4">
-    <div class="col mb-4" *ngFor="let project of activeProjects">
-      <div class="card m-2 shadow rounded-2">
+    <div class="col mb-4" *ngFor="let project of myProjects ">
+      <div class="card m-2 shadow rounded-4" >
         <a href="/projects/{{project.id}}" class=" stretched-link"></a>
-        <div class="card-header bg-primary">
+        <div class="card-header bg-primary rounded-top-4">
 
         </div>
         <div class="card-body">
@@ -16,26 +16,27 @@
           <div class="card-text">
 
 
-            <div *ngIf="project.tasks.length == 0" class="row">
+            <div *ngIf="project.tasks.length == 0" class="row fst-italic">
               <div class="">
-                This project has no tasks assigned yet.
+                {{ 'NoTasksAssignedYet' | translate}}
               </div>
             </div>
 
 
             <div *ngIf="project.tasks.length > 0" class="row">
-              <p class=" fst-italic ">Upcoming Tasks</p>
+              <p class=" fst-italic ">
+                {{ 'UpcomingTasks' | translate}}
               <div class="col-md-4 fw-semibold">
-                Task
+                {{ 'Task' | translate}}
               </div>
               <div class="col-md-3 text-center fw-semibold">
-                State
+                {{ 'State' | translate}}
               </div>
               <div class="col-md-4 text-end fw-semibold">
-                Deadline
+                {{ 'Deadline' | translate}}
               </div>
             </div>
-            <div class="row mt-2" *ngFor="let task of project.tasks">
+            <div class="row mt-2" *ngFor="let task of project.tasks | slice:0:5">
               <div class="col-md-4">
                 {{task.name}}
               </div>
@@ -55,11 +56,5 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="text-center mb-5 mt-3">
-      <button class="btn btn-primary fw-bold p-3 w-50 shadow">New Project</button>
-    </div>
-
-  </div>
 
 </div>

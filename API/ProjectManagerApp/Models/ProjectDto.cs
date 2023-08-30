@@ -10,9 +10,9 @@ namespace ProjectManagerApp.Models
 
         public double Budget { get; set; }
 
-        public int ManagerId { get; set; }
+        public virtual ManagerInfoDto ManagerAssignedTo { get; set; } = null!;
 
-        public ICollection<Entities.Task> Tasks { get; set; } = new List<Entities.Task>();
+        public virtual ICollection<TaskDto> Tasks { get; set; } = new List<TaskDto>();
 
 
     }

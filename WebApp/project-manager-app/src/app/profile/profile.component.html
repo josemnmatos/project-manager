@@ -1,0 +1,183 @@
+<div class=" container-fluid" style="width:90%">
+   <div class=" row mt-5 mb-5 gx-4">
+      <div class="col-md-1">
+         <div class=" text-center p-3 bg-body-tertiary rounded-4 shadow-lg">
+            <h1><i class=" text-primary bi bi-person-lines-fill"></i></h1>
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class=" text-center bg-light p-3 rounded-4 shadow-lg">
+            <h1>{{this.userProfile.firstName | titlecase}} {{this.userProfile.lastName | titlecase}}</h1>
+         </div>
+      </div>
+      <div class="col-md-5">
+         <div class=" text-center rounded-4 bg-primary p-3 shadow-lg">
+            <h1 class=" text-white" *ngIf="this.userProfile.role=='manager'"> {{'Manager' | translate}} </h1>
+            <h1 class=" text-white" *ngIf="this.userProfile.role=='developer'"> {{'Developer' | translate}} </h1>
+         </div>
+      </div>
+   </div>
+   <hr>
+   <div class=" row mt-5 gx-4">
+      <div class="col-md-7">
+         <div class=" text-start bg-light p-3 rounded-4 shadow-lg">
+            <h4 class="ms-5 text-muted ">{{'UserDetails' | translate}}</h4>
+            <hr>
+            <div class=" row mt-5">
+               <div class="col-md-2 text-center">
+                  <h5 class=" text-muted"><i class="bi bi-list-ol"></i></h5>
+                  <h5 class=" text-muted"><i class="bi bi-person-vcard"></i></h5>
+                  <h5 class=" text-muted"><i class="bi bi-person-vcard"></i></h5>
+                  <h5 class=" text-muted"><i class="bi bi-envelope-at"></i></h5>
+                  <h5 class=" text-muted"><i class="bi bi-person-badge"></i></h5>
+
+               </div>
+               <div class="col-md-4 text-start">
+                  <h5 class=" text-muted">ID</h5>
+                  <h5 class=" text-muted">{{'FirstName' | translate}}</h5>
+                  <h5 class=" text-muted">{{'LastName' | translate}}</h5>
+                  <h5 class=" text-muted">Email</h5>
+                  <h5 class=" text-muted">{{'Role' | translate}}</h5>
+
+
+               </div>
+               <div class="col-md-6 text-start ps-5">
+                  <h5 class=" ">{{this.userProfile.id}}</h5>
+                  <h5 class=" ">{{this.userProfile.firstName | titlecase}}</h5>
+                  <h5 class=" ">{{this.userProfile.lastName | titlecase}}</h5>
+                  <h5 class=" ">{{this.userProfile.email}}</h5>
+                  <h5 class=" ">{{this.userProfile.role | titlecase}}</h5>
+
+               </div>
+            </div>
+
+
+         </div>
+      </div>
+      <div class="col-md-5">
+         <div class=" bg-light p-3 rounded-4 shadow-lg">
+            <h4 class="ms-5 text-muted ">{{'Actions' | translate}}</h4>
+            <hr>
+            <div class="row text-center ">
+               <div class="col-md-3">
+
+               </div>
+               <div class="col-md-6">
+                  <button class="btn btn-outline-primary w-100 mt-4" data-toggle="modal"
+                     data-target="#editProfileModal">{{'EditProfile' | translate}}</button>
+
+                  <button class="btn btn-outline-primary w-100 mt-4" data-toggle="modal"
+                     data-target="#changePasswordModal">{{'ChangePassword' | translate}}</button>
+
+                  <button class="btn btn-danger w-100 mt-4" data-toggle="modal" data-target="#confirmDeleteModal">
+                     {{'DeleteUser' | translate}}</button>
+
+               </div>
+               <div class="col-md-3">
+
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+
+
+   <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">{{'EditProfile' | translate}}</h5>
+            
+               <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form action="" class="form-group" [formGroup]="editProfileForm" (ngSubmit)="onSubmitEdit()">
+
+                  <label for="firstName" class="mt-1">{{'FirstName' | translate}}</label>
+                  
+                  <input type="text" class="form-control " id="firstName" formControlName="firstName"
+                     placeholder="First Name" required>
+
+                  <label for="lastName" class="mt-2">{{'LastName' | translate}}</label>
+                  <input type="text" class="form-control " id="lastName" formControlName="lastName"
+                     placeholder="Last Name" required>
+
+                  <label for="email" class="mt-2">Email</label>
+                  <input type="email" class="form-control " id="email" formControlName="email" placeholder="Email"
+                     required>
+
+
+               </form>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Close' | translate}}</button>
+               <button type="button" class="btn btn-primary" (click)="onSubmitEdit()">{{'Save' | translate}}</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+   <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">{{'ChangePassword' | translate}}</h5>
+               <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form action="" class="form-group" [formGroup]="changePasswordForm"
+                  (ngSubmit)="onSubmitChangePassword()">
+                  <label for="currentPassword" class="mt-1">{{'CurrentPassword' | translate}}</label>
+                  
+                  <input type="password" class="form-control " id="currentPassword" formControlName="currentPassword"
+                     placeholder="***" required>
+
+                  <label for="newPassword" class="mt-2">{{'NewPassword' | translate}}</label>
+               
+                  <input type="password" class="form-control " id="newPassword" formControlName="newPassword"
+                     placeholder="***" required>
+
+                  <label for="confirmNewPassword" class="mt-2">{{'ConfirmNewPassword' | translate}}</label>
+                  <input type="password" class="form-control " id="confirmNewPassword"
+                     formControlName="confirmNewPassword" placeholder="***" required>
+               </form>
+
+
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Close' | translate}}</button>
+               <button type="button" class="btn btn-primary" (click)="onSubmitChangePassword()">
+                  {{'Save' | translate}}</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">{{'DoYouWantToDeleteUser' | translate}} </h5>
+               <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               {{'ThisActionCannotBeUndone' | translate}}
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Close' | translate}}</button>
+               <button type="button" class="btn btn-danger" (click)="onDelete()" data-dismiss="modal">
+                  {{'Delete' | translate}}</button>
+            </div>
+         </div>
+      </div>
+   </div>

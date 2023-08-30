@@ -1,0 +1,185 @@
+<div class="row">
+
+   <div class="col-md-9">
+      <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <span *ngIf="selectedProject" class="me-3">{{selectedProject.name}}</span>
+            <span *ngIf="!selectedProject" class="me-3">{{'NoProjectSelected' | translate}}</span>
+            
+         </button>
+         <ul class="dropdown-menu w-100">
+            <li *ngFor="let project of manager.projects"><a (click)="setSelectedProject(project)" class="dropdown-item"
+                  href="#" onclick="return false;">{{project.name}}</a></li>
+         </ul>
+      </div>
+   </div>
+   <div class="col-md-3">
+
+      <button class="btn btn-outline-primary  w-100" type="button" data-toggle="modal" data-target="#myModal"
+         aria-expanded="false">
+         <i class="bi bi-plus-circle-fill"></i> {{'NewProject' | translate}}
+      </button>
+
+
+
+   </div>
+
+   <hr class="mt-3">
+
+   <div *ngIf="selectedProject" class=" text-center">
+      <div class=" row">
+         <div class="col-md-7">
+            <div class="text-start bg-light p-3 pt-1 mt-1 rounded-4 shadow-lg">
+               <div class="row" style="max-height: 20vh; min-height:20vh;">
+                  <div class="row">
+                     <div class="col-md-9">
+                        <h5 class="mt-3 ms-3">{{'ProjectDetails' | translate}}</h5>
+                     </div>
+                     <div class="col-md-3">
+                        <a href="projects/{{selectedProject.id}}">
+                           <button class="w-100 btn btn-success mt-3">
+                              {{'Manage' | translate}}
+                           </button>
+                        </a>
+                        
+                        
+                     </div>
+
+
+                     
+                  </div>
+                  <br>
+
+                  <div class=" row mt-3">
+                     <h5 class="ms-3"> <i class="bi bi-card-text"></i> {{selectedProject.name}}</h5>
+                     <h5 class="ms-3"> <i class="bi bi-kanban"></i> {{manager.firstName}} {{manager.lastName}} </h5>
+                     <h5 class="ms-3"> <i class="bi bi-currency-exchange"></i> {{selectedProject.budget |
+                        currency:'EUR'}} </h5>
+                  </div>
+               </div>
+
+            </div>
+
+            <div class="text-start bg-light p-3 pt-1 mt-4 rounded-4 shadow-lg">
+               <div class="row">
+                  <div class="row">
+                     <h5 class="mt-3 ms-3 mb-4">{{'DeveloperBreakdown' | translate}}</h5>
+                  </div>
+                  <br>
+
+                  <div style="max-height: 30vh; min-height:30vh;">
+                     <ngx-charts-bar-vertical-2d [results]="developerData" [customColors]="colors"
+                        [xAxis]="'Developers'" [yAxis]="'Task Number'" [showXAxisLabel]="true" [showYAxisLabel]="true"
+                        [xAxisLabel]="'Developers'" [yAxisLabel]="'Task Number'">
+                     </ngx-charts-bar-vertical-2d>
+                  </div>
+               </div>
+
+            </div>
+
+         </div>
+         <div class="col-md-5">
+            <div class="text-start bg-light p-3 pt-1 mt-1 rounded-4 shadow-lg">
+               <div class=" row">
+                  <h5 class="mt-3 ms-3">{{'ProjectState' | translate}}</h5>
+               </div>
+
+
+               <div style="max-height: 57vh; min-height:57vh;">
+                  <ngx-charts-pie-chart *ngIf="chartData" [results]="chartData" [labels]="true" [customColors]="colors"
+                     [maxLabelLength]="25" [doughnut]="true">
+                  </ngx-charts-pie-chart>
+               </div>
+            </div>
+
+
+         </div>
+
+      </div>
+
+      <div class="row">
+         <div class="text-start bg-light p-3 pt-1 mt-4 rounded-4 shadow-lg">
+            <div class=" row">
+               <h5 class="mt-3 ms-3">{{'TaskList' | translate}}</h5>
+            </div>
+
+            <div class=" row gx-5 ms-2 mt-4">
+               <div class="col-md-1 fw-bold">
+                  ID
+               </div>
+               <div class="col-md-4 fw-bold">
+                  {{'Name' | translate}}
+               </div>
+               <div class="col-md-4 fw-bold">
+                  {{'Developer' | translate}}
+               </div>
+               <div class="col-md-3 fw-bold">
+                  {{'State' | translate}}
+               </div>
+            </div>
+            
+            <div *ngFor="let task of selectedProject.tasks">
+               <div class=" row gx-5 mt-4 ms-3 me-1 pt-3 pb-3 rounded-4 shadow-sm"
+                  [ngClass]="task.state==1 ? 'bg-danger-subtle' : task.state==2 ? 'bg-warning-subtle' : 'bg-success-subtle' "
+               >
+                  <div class="col-md-1">
+                     {{task.id}}
+                  </div>
+                  <div class="col-md-4">
+                     {{task.name}}
+                  </div>
+                  <div class="col-md-4">
+                     {{task.developerAssignedTo.firstName}} {{task.developerAssignedTo.lastName}}
+                  </div>
+                  <div class="col-md-3">
+                     <span *ngIf="task.state==1">{{'NotStarted' | translate}}</span>
+                     <span *ngIf="task.state==2">{{'Pending' | translate}}</span>
+                     <span *ngIf="task.state==3">{{'Complete' | translate}}</span>
+                  </div>
+               </div>
+               
+
+
+            </div>
+
+         </div>
+      </div>
+   </div>
+
+
+</div>
+
+
+
+
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="btn btn-outline-danger close rounded-2" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title me-4">{{'NewProject' | translate}}</h4>
+         </div>
+         <div class="modal-body">
+            <form [formGroup]="projectCreationForm" (ngSubmit)="onSubmit()" class=" form-control-lg">
+               <div class="row p-2">
+                  <label for="">{{'Name'|translate}}</label>
+                  <input formControlName="name" type="text" class=" rounded-2 form-text">
+               </div>
+               <div class="row p-2">
+                  <label for=""> {{'Budget'|translate}}</label>
+                  <input formControlName="budget" type="number" class=" rounded-2 form-text">
+               </div>
+               <div class="row p-2 mt-4">
+                  <button type="submit" class="btn btn-success">{{'Submit'|translate}}</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>

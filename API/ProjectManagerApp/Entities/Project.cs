@@ -16,7 +16,7 @@ namespace ProjectManagerApp.Entities
         public string Name { get; set; }
 
         [ForeignKey("ManagerId")]
-        public Manager ManagerInCharge { get; set; }
+        public Manager ManagerAssignedTo { get; set; } = null!;
 
         public int ManagerId { get; set; }
 

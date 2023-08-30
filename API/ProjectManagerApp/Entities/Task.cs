@@ -20,7 +20,7 @@ namespace ProjectManagerApp.Entities
         public CurrentState State { get; set; }
 
         [ForeignKey("DeveloperId")]
-        public Developer? DeveloperAssignedTo { get; set; }
+        public Developer? DeveloperAssignedTo { get; set; } = null!;
 
         public int DeveloperId { get; set; }
 
@@ -28,7 +28,7 @@ namespace ProjectManagerApp.Entities
         public DateTime Deadline { get; set; }
 
         [ForeignKey("ProjectId")]
-        public Project ProjectAssociatedTo { get; set; }
+        public Project ProjectAssociatedTo { get; set; } = null!;
 
         public int ProjectId { get; set; }
 

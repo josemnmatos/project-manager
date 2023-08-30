@@ -1,0 +1,182 @@
+<div class="container-fluid" style="width:90%;">
+   <div class="row">
+      <div class="col-md-5">
+         <h2 class="mt-4">{{'UpcomingTasks' | translate}}</h2>
+         <div *ngFor="let task of activeTasks | slice:0:3; ">
+            <div class="card mt-4 w-75" style="width: 18rem;">
+               <div class="card-body"
+                  [ngClass]="{'bg-success-subtle': task.state == 3, 'bg-warning-subtle': task.state == 2, 'bg-danger-subtle': task.state == 1}">
+
+                  <div class=" d-flex card-title">
+                     <h5 class="card-title">{{task.name}} </h5>
+                     <button class="ms-auto btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#taskModal"
+                        (click)="selectTask(task)">{{'Open' | translate}}</button>
+
+                  </div>
+
+                  {{task.deadline | date}}
+                  <hr>
+                  <p class="card-text">{{task.status}}</p>
+                  <div class=" d-flex">
+                     <h5 class="ms-0 text-muted fst-italic">
+                        {{task.deadline | daysAgo}}
+                     </h5>
+
+                     <h4 class="ms-auto">
+                        <i *ngIf="task.state==3" class="bi bi-check-circle-fill text-success"></i>
+                        <i *ngIf="task.state==2" class="bi bi-hourglass-split text-warning"></i>
+                        <i *ngIf="task.state==1" class="bi bi-x-circle-fill text-danger"></i>
+                     </h4>
+                  </div>
+
+               </div>
+            </div>
+
+         </div>
+      </div>
+
+
+      <div class=" col-md-7">
+         <h2 class="mt-4">{{'MyTasks' | translate}}</h2>
+
+         <div class=" row gx-4">
+            <div class="col-md-6 mt-4">
+               <label for="state">{{'State' | translate}}</label>
+               <select ngModel (ngModelChange)="myStateSelectHandler($event)" name="" id="state" class="form-select mt-1">
+                  <option value="all">{{'All' | translate}}</option>
+                  <option value="notStarted">{{'NotStarted' | translate}}</option>
+                  <option value="pending">{{'Pending' | translate}}</option>
+                  <option value="completed">{{'Complete' | translate}}</option>
+               </select>
+            </div>
+            <div class="col-md-6 mt-4">
+               <label for="sort">{{'SortBy' | translate}}</label>
+               <select ngModel (ngModelChange)="mySelectHandler($event)" name="sort" id="sort" class="form-select mt-1">
+                  <option value="deadline" (click)="sortByDeadline()">{{'Deadline' | translate}}</option>
+                  <option value="name" (click)="sortByName()">{{'Name' | translate}}</option>
+                  <option value="projectName" (click)="sortByProjectName()">{{'Project' | translate}}</option>
+               </select>
+            </div>
+
+
+
+         </div>
+
+
+
+         
+
+
+
+
+         <div class=" row gx-5 ms-2 mt-4">
+            <div class="col-md-1 fw-bold">
+               ID
+            </div>
+            <div class="col-md-3 fw-bold">
+               {{'Name' | translate}}
+            </div>
+            <div class="col-md-3 fw-bold">
+               {{'Project' | translate}}
+            </div>
+            <div class="col-md-3 fw-bold">
+               {{'Deadline' | translate}}
+            </div>
+            <div class="col-md-2 fw-bold">
+
+            </div>
+         </div>
+
+         <div *ngFor="let task of tasksToShow">
+            <div class=" row gx-5 mt-4 ms-1 me-1 pt-4 pb-3 rounded-4 shadow-sm"
+               [ngClass]="task.state==1 ? 'bg-danger-subtle' : task.state==2 ? 'bg-warning-subtle' : 'bg-success-subtle' ">
+               <div class="col-md-1">
+                  {{task.id}}
+               </div>
+               <div class="col-md-3">
+                  {{task.name}}
+               </div>
+               <div class="col-md-3">
+                  {{task.projectAssociatedTo?.name}}
+               </div>
+               <div class="col-md-3">
+                  {{task.deadline | date}}
+               </div>
+
+               <div class="col-md-2">
+                  <button type="button" (click)="selectTask(task)" data-toggle="modal"
+                     data-target="#taskModal" class="btn btn-outline-dark w-100">{{'Open' | translate}} </button>
+               </div>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+</div>
+
+
+<!-- Modal for task details -->
+
+<div id="taskModal" class="modal fade">
+   <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+         <!-- Header -->
+         <div class="modal-header"
+            [ngClass]="selectedTask?.state==1 ? 'bg-danger-subtle' : selectedTask?.state==2 ? 'bg-warning-subtle' : 'bg-success-subtle'">
+
+
+            <h2 class="ms-3 mt-3">{{selectedTask?.name}} </h2>
+
+            <button type="button" class="btn-close me-3" aria-label="Close" data-dismiss="modal"></button>
+         </div>
+
+         <!-- Body -->
+         <div class="modal-body ms-3">
+            <h4 class=" text-muted">{{selectedTask?.description}}</h4>
+            <div class=" row mt-3">
+               <div class="col-md-6">
+                  {{'Project' | translate}} :<h4 class="">{{selectedTask?.projectAssociatedTo?.name}}</h4>
+                  <hr class=" mt-2">
+
+                  {{'Deadline' | translate}} :<h4 class=""> {{'DueIn' | translate}} {{selectedTask?.deadline | daysAgo}}</h4>
+                  <h5 class=" fst-italic text-muted">{{selectedTask?.deadline | date}}</h5>
+
+                  {{'State' | translate}} :<h4 *ngIf="selectedTask?.state==3" class=" text-success mt-3">{{'Complete' | translate}}</h4>
+                  <h4 *ngIf="selectedTask?.state==2" class=" text-warning">{{'Pending' | translate}}</h4>
+                  <h4 *ngIf="selectedTask?.state==1" class=" text-danger">{{'NotStarted' | translate}}</h4>
+
+               </div>
+               <div class="col-md-2">
+               </div>
+               <div class="col-md-4">
+                  <div class="row mt-4 w-75">
+                     <button (click)="setTaskState(selectedTask,2)" *ngIf="selectedTask?.state != 2"
+                        class="btn btn-warning">{{'MarkAsPending' | translate}}</button>
+                  </div>
+                  <div class="row mt-4 w-75">
+                     <button (click)="setTaskState(selectedTask,3)" *ngIf="selectedTask?.state != 3"
+                        class="btn btn-success">{{'MarkAsComplete' | translate}}</button>
+
+                  </div>
+
+
+
+
+
+               </div>
+
+            </div>
+
+
+
+
+
+         </div>
+
+      </div>
+
+      <!-- Footer -->
+
+   </div>
+</div>

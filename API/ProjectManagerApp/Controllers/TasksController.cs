@@ -92,6 +92,28 @@ namespace ProjectManagerApp.Controllers
                 );
         }
 
+        [HttpPost("{taskid}/state")]
+        public async Task<ActionResult> SetTaskState (int projectId, int taskId, [FromBody] CurrentState newState)
+        {
+            if (!await _projectInfoRepository.ProjectExistsAsync(projectId))
+            {
+                return NotFound();
+            }
+
+            var taskEntity = await _projectInfoRepository.GetTaskForProjectAsync(projectId, taskId);
+
+            if (taskEntity == null)
+            {
+                return NotFound();
+            }
+
+            await _projectInfoRepository.SetTaskStateAsync(projectId, taskId, newState);
+
+            await _projectInfoRepository.SaveChangesAsync();
+
+            return NoContent();
+        }   
+
 
         [HttpDelete("{taskid}")]
         public async Task<ActionResult> DeleteTask(int projectId, int taskId)

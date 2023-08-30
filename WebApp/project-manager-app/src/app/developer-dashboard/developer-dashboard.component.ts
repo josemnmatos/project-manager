@@ -4,7 +4,6 @@ import { DashboardService } from '../services/dashboard.service';
 import { Subscription } from 'rxjs';
 import { Developer } from '../shared/developer';
 import { DaysAgoPipe } from '../shared/days-ago-pipe';
-import { TimelineModule } from 'primeng/timeline';
 import { Task } from '../shared/task';
 import { TasksService } from '../services/tasks.service';
 
